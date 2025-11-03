@@ -8,128 +8,125 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body class="bg-light p-4">
-    <div class="container bg-white p-4 rounded shadow-sm">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2>Fornecedores</h2>
+
+    <!-- Cabeçalho com o botão -->
+    <section class="container bg-white p-4 rounded shadow-sm mb-4">
+        <header class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="m-0">Fornecedores</h1>
+        </header>
+
+        <div class="d-flex gap-2">
+            <input type="text" class="form-control buscar" placeholder="Buscar Fornecedores...">
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#modalFornecedor">
+                <i class="bi bi-plus"></i>
+                Novo Fornecedor
+            </button>
         </div>
-    </div>
+    </section>
 
-    <!-- Container de busca -->
-    <div class="container bg-white p-4 rounded shadow-sm" id="container-buscar">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div class="d-flex gap-2">
+    <!-- Tabela -->
+    <section class="container bg-white p-4 rounded shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+                <thead>
+                    <tr>
+                        <th>Nome da empresa</th>
+                        <th>CNPJ</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Cidade</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <button class="action edit"><i class="bi bi-pencil"></i></button>
+                            <button class="action delete"><i class="bi bi-trash"></i></button>
 
-                <div class="buscar">
-                    <input type="text" class="form-control" placeholder="Buscar Fornecedores...">
-                </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
 
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalProduto">
-                    <i class=""></i> Novo Fornecedor
-                </button>
+    <!-- Modal de cadastro -->
+    <div class="modal fade" id="modalFornecedor" tabindex="-1" aria-labelledby="modalFornecedorLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <form id="formFornecedor">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalFornecedorLabel">Adicionar Fornecedor</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                            aria-label="Fechar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label for="nomeEmpresa" class="form-label">Nome da empresa</label>
+                                <input type="text" id="nomeEmpresa" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="cnpjEmpresa" class="form-label">CNPJ</label>
+                                <input type="text" id="cnpjEmpresa" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="emailEmpresa" class="form-label">Email</label>
+                                <input type="email" id="emailEmpresa" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="telefoneEmpresa" class="form-label">Telefone</label>
+                                <input type="text" id="telefoneEmpresa" class="form-control">
+                            </div>
+
+                            <hr class="mt-4 mb-2">
+                            <p><strong>Endereço</strong></p>
+
+                            <div class="col-md-6">
+                                <label for="ruaEmpresa" class="form-label">Rua</label>
+                                <input type="text" id="ruaEmpresa" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="bairroEmpresa" class="form-label">Bairro</label>
+                                <input type="text" id="bairroEmpresa" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="cidadeEmpresa" class="form-label">Cidade</label>
+                                <input type="text" id="cidadeEmpresa" class="form-control">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer mt-4">
+                        <button type="button" class="btn btn-outline-custom" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Salvar</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="container bg-white p-4 rounded shadow-sm">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-
-
-            <!-- Tabela -->
-            <table class="table table-sm">
-                <tr>
-                    <th>Nome da empresa</th>
-                    <th>CNPJ</th>
-                    <th>Telefone</th>
-                    <th>Email</th>
-                    <th>Cidade</th>
-                    <th>Ações</th>
-                </tr>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <!-- Modal de cadastro -->
-        <div class="modal fade" id="modalProduto" tabindex="-1" aria-labelledby="modalProdutoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalProdutoLabel">Adicionar Fornecedor</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Fechar"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form id="formProduto">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Nome da empresa</label>
-                                    <input type="text" class="form-control" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">CNPJ</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Telefone</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <hr class="mt-4 mb-2">
-                                <p><strong>Endereço</strong></p>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Rua</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Bairro</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Cidade</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" form="formProduto" class="btn btn-success">Salvar</button>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
 
 <style>
-    section {
-        width: 300px;
-    }
-
-
-    #container-buscar {
-        margin-bottom: 30px;
-        margin-top: 30px;
-    }
-
-    .buscar {
-        width: 70vw;
-    }
 </style>

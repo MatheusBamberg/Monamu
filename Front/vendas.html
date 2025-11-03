@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+
+<body class="bg-light p-4">
+    <main>
+
+        <!-- Seção de busca e botão -->
+        <section class="container bg-white p-4 rounded shadow-sm" id="container-buscar">
+            <header class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="m-0">Vendas</h1>
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalVenda">
+                    <i class="bi bi-plus"></i>
+                    Nova Venda
+                </button>
+            </header>
+        </section>
+
+        <!-- Tabela -->
+        <section class="container bg-white p-4 rounded shadow-sm">
+            <header>
+                <h2>Vendas Registradas</h2>
+            </header>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Funcionário</th>
+                            <th>Data</th>
+                            <th>Forma de Pagamento</th>
+                            <th>Cupom</th>
+                            <th>Total</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal de cadastro -->
+    <div class="modal fade" id="modalVenda" tabindex="-1" aria-labelledby="modalVendaLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalVendaLabel">Nova Venda</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Fechar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="formVenda">
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label class="form-label">Cliente</label>
+                                <select class="form-select" required>
+                                    <option selected disabled>Selecione o cliente...</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Funcionário</label>
+                                <select class="form-select" required>
+                                    <option selected disabled>Selecione o funcionário...</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Data</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Forma de Pagamento</label>
+                                <select class="form-select" required>
+                                    <option selected disabled>Selecione...</option>
+                                    <option value="dinheiro">Dinheiro</option>
+                                    <option value="credito">Crédito</option>
+                                    <option value="debito">Débito</option>
+                                    <option value="pix">Pix</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Cupom de Desconto</label>
+                                <input type="text" class="form-control" placeholder="Opcional">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Total da Venda</label>
+                                <input type="text" class="form-control" value="0,00" readonly>
+                            </div>
+
+                            <hr class="mt-4 mb-2">
+                            <p><strong>Itens da Venda</strong></p>
+
+                            <!-- Itens detalhados -->
+                            <div class="col-md-6">
+                                <label class="form-label">Produto</label>
+                                <select class="form-select">
+                                    <option selected disabled>Selecione o produto...</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Quantidade</label>
+                                <input type="number" class="form-control" min="1" value="1">
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Valor Unitário</label>
+                                <input type="text" class="form-control" value="0,00" readonly>
+                            </div>
+
+                            <div class="col-md-2">
+                                <label class="form-label">Valor Total</label>
+                                <input type="text" class="form-control" value="0,00" readonly>
+                            </div>
+
+                            <div class="col-12 d-flex justify-content-end mt-2">
+                                <button type="button" class="btn btn-outline-secondary me-2">Adicionar Item</button>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer mt-4">
+                            <button type="button" class="btn btn-outline-custom"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

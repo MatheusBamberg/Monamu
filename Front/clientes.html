@@ -8,123 +8,121 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/styles.css">
 </head>
 
 <body class="bg-light p-4">
-    <h2>Clientes</h2>
+    <main>
 
-    <!-- Container de busca -->
-    <div class="container bg-white p-4 rounded shadow-sm" id="container-buscar">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <div class="d-flex gap-2">
+        <!-- Seção de busca e ação -->
+        <section class="container bg-white p-4 rounded shadow-sm" id="container-buscar">
+            <header class="mb-3">
+                <h1>Clientes</h1>
+            </header>
+            <div class="d-flex gap-2 flex-wrap align-items-center">
+                <div class="buscar flex-grow-1">
+                    <label for="buscarCliente" class="visually-hidden">Buscar Cliente</label>
+                    <input type="text" id="buscarCliente" class="form-control" placeholder="Buscar clientes...">
+                </div>
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalCliente">
+                    <i class="bi bi-plus"></i>
+                    Novo Cliente
+                </button>
+            </div>
+        </section>
 
-                <div class="buscar">
-                    <input type="text" class="form-control" placeholder="Buscar Clientes...">
+        <!-- Seção da tabela de clientes -->
+        <section class="container bg-white p-4 rounded shadow-sm mt-4">
+            <header class="mb-3">
+                <h2>Clientes Cadastrados</h2>
+            </header>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Cidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal de cadastro -->
+    <div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalClienteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalClienteLabel">Adicionar Cliente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Fechar"></button>
                 </div>
 
-                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalProduto">
-                    <i class=""></i> Novo Cliente
-                </button>
+                <div class="modal-body">
+                    <form id="formCliente">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Nome Completo</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">CPF</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Telefone</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control">
+                            </div>
+
+                            <hr class="mt-4 mb-2">
+                            <p><strong>Endereço</strong></p>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Rua</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Bairro</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Cidade</label>
+                                <input type="text" class="form-control">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer mt-4">
+                            <button type="button" class="btn btn-outline-custom"
+                                data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success">Salvar</button>
+                        </div>
+
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
 
-    <div class="container bg-white p-4 rounded shadow-sm">
-        <div class="d-flex justify-content-between align-items-center mb-4">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
-            <!-- Tabela -->
-            <table class="table table-sm">
-                <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
-                    <th>Cidade</th>
-                    <th>Ações</th>
-                </tr>
-                <tbody></tbody>
-            </table>
-        </div>
-
-        <!-- Modal de cadastro -->
-        <div class="modal fade" id="modalProduto" tabindex="-1" aria-labelledby="modalProdutoLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalProdutoLabel">Adicionar Cliente</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                            aria-label="Fechar"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <form id="formProduto">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label">Nome Completo</label>
-                                    <input type="text" class="form-control" required>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">CPF</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Telefone</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control">
-                                </div>
-
-                                <hr class="mt-4 mb-2">
-                                <p><strong>Endereço</strong></p>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Rua</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Bairro</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-                                <div class="col-md-6">
-                                    <label class="form-label">Cidade</label>
-                                    <input type="text" class="form-control">
-                                </div>
-
-
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" form="formProduto" class="btn btn-success">Salvar</button>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
-
-<style>
-    section {
-        width: 300px;
-    }
-
-
-    #container-buscar {
-        margin-bottom: 30px;
-        margin-top: 30px;
-    }
-
-    .buscar {
-        width: 70vw;
-    }
-</style>
