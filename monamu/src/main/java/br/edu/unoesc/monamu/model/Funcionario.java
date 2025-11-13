@@ -1,6 +1,6 @@
 package br.edu.unoesc.monamu.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -25,7 +25,7 @@ public class Funcionario extends Pessoa {
 	private String cargo;
 
 	@Column(name = "datadmfun")
-	private Date dataAdmissao;
+	private LocalDateTime dataAdmissao;
 
 	@Column(name = "senfun")
 	private String senha;
