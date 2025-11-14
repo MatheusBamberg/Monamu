@@ -36,10 +36,8 @@ public class Condicional {
 	@Column(name = "obsitncon")
 	private String observacao;
 	
-	// tem um codcli?
-	
 	@ManyToOne
-	@JoinColumn(name = "codpes", referencedColumnName = "codpes", nullable = false)
+	@JoinColumn(name = "codcli", nullable = false)
 	private Cliente cliente;
 
 }

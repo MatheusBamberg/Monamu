@@ -16,34 +16,35 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name= "Pessoa")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Pessoa {
+public abstract class Pessoa {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codpes")
-	private Integer id;
+	protected Integer id;
 	
-	@Column(name= "nompes")
-	private String nome;
+	@Column(name= "nompes", length = 80, nullable = false)
+	protected String nome;
 	
-	@Column(name= "emapes", nullable = false, unique = true)
-	private String email;
+	@Column(name= "emapes", length = 80, nullable = false, unique = true)
+	protected String email;
 	
-	@Column(name= "sexpes")
-	private Character sexo;
+	@Column(name= "sexpes", length = 1, nullable = false)
+	protected Character sexo;
 	
-	@Column(name= "telpes")
-	private String telefone;
+	@Column(name= "telpes", length = 20, nullable = false)
+	protected String telefone;
 	
-	@Column(name= "ruapes")
-	private String rua;
+	@Column(name= "ruapes", length = 100, nullable = false)
+	protected String rua;
 	
-	@Column(name= "baipes")
-	private String bairro;
+	@Column(name= "baipes", length = 20, nullable = false)
+	protected String bairro;
 	
-	@Column(name= "cidpes")
-	private String cidade;
+	@Column(name= "cidpes", length = 50, nullable = false)
+	protected String cidade;
 	
-	@Column(name= "estpes")
-	private String estado;
+	@Column(name= "estpes", length = 20, nullable = false)
+	protected String estado;
 	
 }

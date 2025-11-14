@@ -24,6 +24,9 @@ public class ItemVenda {
 	@Column(name = "coditeven")
 	private Integer id;
 	
+	@Column(name = "qtditeven")
+	private BigDecimal quantidadeItem;
+	
 	@Column(name = "vlruniteven")
 	private BigDecimal valorUnitario;
 
