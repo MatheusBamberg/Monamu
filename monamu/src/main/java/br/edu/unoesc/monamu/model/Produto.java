@@ -55,16 +55,12 @@ public class Produto {
 	@Column(name = "atipro")
 	private Boolean ativo;
 	
-	//revisar??
-	@ManyToOne
-	@JoinColumn(name = "codfor", referencedColumnName = "codpes", nullable = true)
-	private Fornecedor fornecedor;
-
 	@ManyToOne
 	@JoinColumn(name = "codloj", nullable = false)
 	private Loja loja;
-
+	
 	@ManyToOne
-	@JoinColumn(name = "codpes", referencedColumnName = "codpes", nullable = false)
-	private Funcionario funcionario;
+	@JoinColumn(name = "codfor", nullable = true)
+	private Fornecedor fornecedor;
+
 }
