@@ -16,11 +16,6 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "codpes")
 public class Fornecedor extends Pessoa {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "codfor")
-	private Integer id;
-
 	@Column(name = "cnpfor", nullable = false, unique = true)
 	private String cnpj;
 
