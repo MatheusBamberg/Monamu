@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
  * Representa um fornecedor no sistema, herdando atributos de {@link Pessoa}
  */
 @Entity
-@Table(name = "Fornecedor")
+@Table(name = "fornecedor")
 @PrimaryKeyJoinColumn(name = "codpes")
 public class Fornecedor extends Pessoa {
 

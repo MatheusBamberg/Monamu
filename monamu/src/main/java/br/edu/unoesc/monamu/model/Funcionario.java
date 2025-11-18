@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
  */
 
 @Entity
-@Table(name = "Funcionario")
+@Table(name = "funcionario")
 @PrimaryKeyJoinColumn(name = "codpes")
 public class Funcionario extends Pessoa {
 

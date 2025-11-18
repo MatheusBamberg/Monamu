@@ -25,12 +25,12 @@ public class ItemVenda {
 	private Integer id;
 	
 	@Column(name = "qtditeven")
-	private BigDecimal quantidadeItem;
+	private Integer quantidadeItem;
 	
 	@Column(name = "vlruniteven")
 	private BigDecimal valorUnitario;
 
-	@Column(name = "vlrtotileven")
+	@Column(name = "vlrtotiteven")
 	private BigDecimal valorTotal;
 	
 	@ManyToOne

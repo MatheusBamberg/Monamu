@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
  */
 
 @Entity
-@Table(name= "Cliente")
+@Table(name= "cliente")
 @PrimaryKeyJoinColumn(name = "codpes")
 public class Cliente extends Pessoa {
 	

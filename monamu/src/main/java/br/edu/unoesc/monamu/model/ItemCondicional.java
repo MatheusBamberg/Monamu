@@ -23,7 +23,7 @@ public class ItemCondicional {
 	private Integer id;
 	
 	@Column(name = "qtditecon")
-	private String quantidadeItem;
+	private Integer quantidadeItem;
 	
 	@ManyToOne
 	@JoinColumn(name = "codcnd", nullable = false)

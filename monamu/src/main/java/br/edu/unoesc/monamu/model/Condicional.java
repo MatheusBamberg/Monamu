@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
  */
 
 @Entity
-@Table(name = "Condicional")
+@Table(name = "condicional")
 public class Condicional {
 	
 	@Id

@@ -1,6 +1,7 @@
 package br.edu.unoesc.monamu.model;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -16,7 +17,7 @@ import jakarta.persistence.Table;
  * Representa a opção de desconto no sistema
  */
 @Entity
-@Table(name = "Desconto")
+@Table(name = "desconto")
 public class Desconto {
 
 	@Id
@@ -34,7 +35,7 @@ public class Desconto {
 	private LocalDateTime dataCadastro;
 
 	@Column(name = "vlddsc")
-	private LocalDateTime dataValidade;
+	private LocalDate dataValidade;
 	
 	@ManyToOne
 	@JoinColumn(name = "codven", nullable = false)
