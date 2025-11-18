@@ -203,6 +203,24 @@ ALTER TABLE produto ADD CONSTRAINT produto_coloj_fkey_002 FOREIGN KEY (codloj) R
 ALTER TABLE venda ADD CONSTRAINT venda_codcli_fkey_002 FOREIGN KEY (codcli) REFERENCES cliente (codcli);
 ALTER TABLE venda ADD CONSTRAINT venda_codfun_fkey_001 FOREIGN KEY (codfun) REFERENCES funcionario (codfun);
 
+-- Tabela para Auditoria dos Descontos
+CREATE TABLE Desconto_log (
+  codlog    SERIAL NOT NULL, 
+  opelog    varchar(10) NOT NULL, 
+  usudeslog varchar(80) NOT NULL, 
+  datdeslog timestamp NOT NULL, 
+  antdeslog varchar(200), 
+  depdeslog varchar(200), 
+  CONSTRAINT pkey_desconto_log 
+    PRIMARY KEY (codlog));
+COMMENT ON TABLE Desconto_log IS 'Tabela criada para fins de auditoria sobre alterações feitas na tabela Desconto.';
+COMMENT ON COLUMN Desconto_log.codlog IS 'Código do Log gerado';
+COMMENT ON COLUMN Desconto_log.opelog IS 'Operação realizada';
+COMMENT ON COLUMN Desconto_log.usudeslog IS 'Nome do usuário da pessoa que fez a alteração';
+COMMENT ON COLUMN Desconto_log.datdeslog IS 'Data de quando a alteração foi feita';
+COMMENT ON COLUMN Desconto_log.antdeslog IS 'Armazena o que estava salvo antes da alteração';
+COMMENT ON COLUMN Desconto_log.depdeslog IS 'Armazena o que foi salvo depois da alteração';
+
 -----------------------------------------------
 -- Criação dos Índices:
 
