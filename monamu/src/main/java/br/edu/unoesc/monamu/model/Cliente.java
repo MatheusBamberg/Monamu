@@ -22,4 +22,33 @@ public class Cliente extends Pessoa {
 	@Column(name= "datcadcli")
 	private LocalDateTime dataCadastro;
 
+	public Cliente() {
+		
+	}
+
+	public Cliente(Integer id, String nome, String email, Character sexo, String telefone, String rua, String bairro,
+			String cidade, String estado, String cpf, LocalDateTime dataCadastro) {
+		super(id, nome, email, sexo, telefone, rua, bairro, cidade, estado);
+		this.cpf = cpf;
+		this.dataCadastro = dataCadastro;
+	}
+
+
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
 }

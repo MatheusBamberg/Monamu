@@ -1,0 +1,51 @@
+package br.edu.unoesc.monamu.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import br.edu.unoesc.monamu.model.Cliente;
+import br.edu.unoesc.monamu.service.ClienteService;
+
+@RestController
+@RequestMapping("/api/clientes")
+public class ClienteController {
+
+    private final ClienteService clienteService;
+
+    public ClienteController(ClienteService clienteService) {
+        this.clienteService = clienteService;
+    }
+
+    @GetMapping
+    public List<Cliente> listarTodos() {
+        return clienteService.listarTodos();
+    }
+
+    @GetMapping("/{id}")
+    public Cliente buscarPorId(@PathVariable Integer id) {
+        return clienteService.buscarPorId(id);
+    }
+
+    @PostMapping
+    public Cliente criar(@RequestBody Cliente cliente) {
+        return clienteService.criarCliente(cliente);
+    }
+
+    @PutMapping("/{id}")
+    public Cliente atualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
+        return clienteService.atualizarCliente(id, cliente);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletar(@PathVariable Integer id) {
+        clienteService.deletarCliente(id);
+    }
+}
