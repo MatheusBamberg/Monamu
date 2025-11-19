@@ -14,7 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 /**
- * Representa a opção de desconto no sistema
+ * Representa uma opção de desconto.
  */
 @Entity
 @Table(name = "desconto")
@@ -25,19 +25,74 @@ public class Desconto {
 	@Column(name = "coddsc")
 	private Integer id;
 
-	@Column(name = "nomdsc")
+	/** Nome ou código do desconto. */
+	@Column(name = "nomdsc", length = 50, nullable = false)
 	private String nome;
 
-	@Column(name = "valdsc")
+	/** Valor ou percentual do desconto. */
+	@Column(name = "valdsc", precision = 10, scale = 2, nullable = false)
 	private BigDecimal valor;
 	
+	/** Data de cadastro. */
 	@Column(name = "caddsc")
 	private LocalDateTime dataCadastro;
 
+	/** Data de validade. */
 	@Column(name = "vlddsc")
 	private LocalDate dataValidade;
 	
+	/** Venda na qual o desconto foi aplicado (opcional). */
 	@ManyToOne
-	@JoinColumn(name = "codven", nullable = false)
+	@JoinColumn(name = "codven") // nullable=true implícito
 	private Venda venda;
+
+	// --- Getters e Setters ---
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public BigDecimal getValor() {
+		return valor;
+	}
+
+	public void setValor(BigDecimal valor) {
+		this.valor = valor;
+	}
+
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public LocalDate getDataValidade() {
+		return dataValidade;
+	}
+
+	public void setDataValidade(LocalDate dataValidade) {
+		this.dataValidade = dataValidade;
+	}
+
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
 }
