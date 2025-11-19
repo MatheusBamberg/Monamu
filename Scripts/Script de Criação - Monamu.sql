@@ -221,6 +221,24 @@ COMMENT ON COLUMN Desconto_log.datdeslog IS 'Data de quando a alteração foi fe
 COMMENT ON COLUMN Desconto_log.antdeslog IS 'Armazena o que estava salvo antes da alteração';
 COMMENT ON COLUMN Desconto_log.depdeslog IS 'Armazena o que foi salvo depois da alteração';
 
+-- Tabela para Auditoria de Vendas
+CREATE TABLE Venda_log (
+  codvenlog SERIAL NOT NULL, 
+  opevenlog varchar(10) NOT NULL, 
+  usuvenlog varchar(80) NOT NULL, 
+  datvenlog timestamp NOT NULL, 
+  antvenlog varchar(250), 
+  depvenlog varchar(250), 
+  CONSTRAINT pkey_venda_log 
+    PRIMARY KEY (codvenlog));
+COMMENT ON TABLE Venda_log IS 'Tabela para auditoria de alterações na tabela venda.';
+COMMENT ON COLUMN Venda_log.codvenlog IS 'Código do log';
+COMMENT ON COLUMN Venda_log.opevenlog IS 'Operação realizada na alteração';
+COMMENT ON COLUMN Venda_log.usuvenlog IS 'Usuário que fez a alteração';
+COMMENT ON COLUMN Venda_log.datvenlog IS 'Data da alteração';
+COMMENT ON COLUMN Venda_log.antvenlog IS 'O que estava antes da alteração';
+COMMENT ON COLUMN Venda_log.depvenlog IS 'O que ficou depois da alteração';
+
 -----------------------------------------------
 -- Criação dos Índices:
 

@@ -28,7 +28,6 @@ execute procedure desconto_trigger();
 -- Teste do log
 select * from desconto_log;
 select * from desconto;
-select * from venda;
 
 update desconto 
 set valdsc = 25 
@@ -43,50 +42,40 @@ where coddsc = 7;
 -----------------------------------------------------------------------
 
 -- Trigger para controle de Integridade do Sistema. Confirmação de Deleção de Clientes:
-create or replace function confirmacao_delete()
+create or replace function Venda_trigger()
 returns trigger
 as
 $Body$
 begin
-	if TG_OP = 'DELETE' then
-		if current_setting('app.confirma_delete', true) is distinct from ('true') then
-			raise exception 'Delete bloqueado: necessário confirmar antes de executar.';
-		end if;
+	insert into venda_log (opevenlog, usuvenlog, datvenlog, antvenlog, depvenlog)
+	values (TG_OP, current_user, current_timestamp, old::text, new::text);
+
+	if TG_OP = ('DELETE') then
+		return OLD;
+	else
+		return NEW;
 	end if;
-	
-	return OLD;
 end
 $Body$
 language plpgsql;
 
-drop trigger if exists delete_cliente_bf_tg on cliente;
-
--- Inserindo Trigger:
-create trigger delete_cliente_bf_tg
-before delete
-on cliente
+-- Inserindo o trigger:
+create trigger venda_bf_tg 
+before insert or update or delete
+on venda
 for each row
-execute procedure confirmacao_delete();
+execute procedure venda_trigger();
 
--- Testes
---Inserts para testar
-select * from cliente;
-select * from pessoa;
+-- Testando log:
+select * from venda_log;
+select * from venda;
 
-insert into pessoa (nompes, emapes, sexpes, telpes, ruapes, baipes, cidpes, estpes)
-values ('carlos', 'carlos@gmail.com', 'M', '9', 'rur', 'la', 'aqui', 'sc');
+insert into venda (datven, totven, fompagven, cupdscven, codcli, codfun)
+values (current_timestamp, 2, 'Dinheiro', 1, 1, 3);
 
-insert into cliente (codcli, cpfcli, datcadcli)
-values (6, '21512577', current_timestamp);
+update venda
+set totven = 40
+where codven = 6;
 
-
-delete from cliente
-where codcli = 6;
-
-begin;
-
-set local app.confirma_delete = true;
-delete from cliente
-where codcli = 6;
-
-rollback;
+delete from venda 
+where codven = 6;
