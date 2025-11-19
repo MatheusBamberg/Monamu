@@ -1,8 +1,5 @@
 package br.edu.unoesc.monamu.model;
 
-import java.io.Serializable;
-import java.util.Objects;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,32 +9,29 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 
 /**
- * Representa a ligação (item) de um {@link Produto} dentro de uma {@link Condicional}.
+ * Representa um item dentro de uma condicional.
  */
 @Entity
 @Table(name = "item_condicional")
-public class ItemCondicional implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class ItemCondicional {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coditecon")
     private Integer id;
 
-    @NotNull
-    @Min(1)
+    /** Quantidade do produto no item condicional. */
     @Column(name = "qtditecon", nullable = false)
     private Integer quantidadeItem;
 
+    /** Condicional à qual este item pertence. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codcnd", nullable = false)
     private Condicional condicional;
 
+    /** Produto que faz parte do item. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codpro", nullable = false)
     private Produto produto;
@@ -75,19 +69,4 @@ public class ItemCondicional implements Serializable {
     public void setProduto(Produto produto) {
         this.produto = produto;
     }
-
-    // equals / hashCode
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ItemCondicional)) return false;
-        ItemCondicional that = (ItemCondicional) o;
-        return id != null && id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
 }
-

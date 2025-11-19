@@ -1,9 +1,7 @@
 package br.edu.unoesc.monamu.model;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,66 +12,65 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 /**
- * Representa um produto disponível para venda no sistema.
+ * Representa um produto disponível para venda.
  */
 @Entity
 @Table(name = "produto")
-public class Produto implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codpro")
     private Integer id;
 
-    @NotBlank
-    @Size(max = 100)
+    /** Nome do produto. */
     @Column(name = "nompro", length = 100, nullable = false)
     private String nome;
 
-    @Size(max = 10)
+    /** Tamanho do produto. */
     @Column(name = "tampro", length = 10)
     private String tamanho;
 
-    @Size(max = 50)
+    /** Cor do produto. */
     @Column(name = "corpro", length = 50)
     private String cor;
 
-    @Size(max = 50)
+    /** Tipo/Categoria. */
     @Column(name = "tipro", length = 50)
     private String tipo;
 
-    @NotNull
+    /** Custo de aquisição. */
     @Column(name = "custpro", precision = 10, scale = 2, nullable = false)
     private BigDecimal custo;
 
-    @NotNull
+    /** Preço de venda. */
     @Column(name = "vendpro", precision = 10, scale = 2, nullable = false)
     private BigDecimal venda;
 
-    @Column(name = "qtdestpro")
+    /** Quantidade em estoque. */
+    @Column(name = "qtdestpro", nullable = false)
     private Integer quantidadeEstoque;
 
+    /** Data de cadastro. */
     @Column(name = "datcadpro")
     private LocalDateTime dataCadastro;
 
-    @Size(max = 255)
+    /** Descrição detalhada. */
     @Column(name = "despro", length = 255)
     private String descricao;
 
-    @Column(name = "atipro")
+    /** Status de atividade. */
+    @Column(name = "atipro", nullable = false)
     private Boolean ativo;
 
+    /** Loja a qual o produto pertence. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codloj", nullable = false)
     private Loja loja;
 
+    /** Fornecedor do produto. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codfor", nullable = false)
     private Fornecedor fornecedor;
@@ -87,8 +84,6 @@ public class Produto implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    // resto dos getters/setters...
 
     public String getNome() {
         return nome;
@@ -184,19 +179,5 @@ public class Produto implements Serializable {
 
     public void setFornecedor(Fornecedor fornecedor) {
         this.fornecedor = fornecedor;
-    }
-
-    // equals / hashCode
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Produto)) return false;
-        Produto that = (Produto) o;
-        return id != null && id.equals(that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
     }
 }

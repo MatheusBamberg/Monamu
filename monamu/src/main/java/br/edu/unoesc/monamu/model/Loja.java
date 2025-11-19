@@ -8,9 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 /**
- * Representa a loja no sistema
+ * Representa a loja.
  */
-
 @Entity
 @Table(name = "loja")
 public class Loja {
@@ -20,22 +19,85 @@ public class Loja {
 	@Column(name = "codloj")
 	private Integer id;
 
-	@Column(name = "nomloj")
+	/** Nome da loja. */
+	@Column(name = "nomloj", length = 80, nullable = false)
 	private String nome;
 
-	@Column(name = "rualoj")
+	/** Rua da loja. */
+	@Column(name = "rualoj", length = 100)
 	private String rua;
 
-	@Column(name = "bailoj")
+	/** Bairro da loja. */
+	@Column(name = "bailoj", length = 50)
 	private String bairro;
 
-	@Column(name = "cidloj")
+	/** Cidade da loja. */
+	@Column(name = "cidloj", length = 50)
 	private String cidade;
 
-	@Column(name = "telloj")
+	/** Telefone de contato. */
+	@Column(name = "telloj", length = 20)
 	private String telefone;
 
-	@Column(name = "cnploj")
+	/** CNPJ da loja. */
+	@Column(name = "cnploj", length = 18, unique = true)
 	private String cnpj;
 
+	// --- Getters e Setters ---
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getRua() {
+		return rua;
+	}
+
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+
+	public String getBairro() {
+		return bairro;
+	}
+
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+
+	public String getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(String cnpj) {
+		this.cnpj = cnpj;
+	}
 }
