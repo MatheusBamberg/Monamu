@@ -39,7 +39,22 @@ public class Funcionario extends Pessoa {
     @JoinColumn(name = "codloj", nullable = false)
     private Loja loja;
 
-    // Getters / Setters
+    public Funcionario() {
+    	
+    }
+    
+    public Funcionario(Integer id, String nome, String email, Character sexo, String telefone, String rua,
+			String bairro, String cidade, String estado, String cpf, String cargo, LocalDateTime dataAdmissao,
+			String senha, Loja loja) {
+		super(id, nome, email, sexo, telefone, rua, bairro, cidade, estado);
+		this.cpf = cpf;
+		this.cargo = cargo;
+		this.dataAdmissao = dataAdmissao;
+		this.senha = senha;
+		this.loja = loja;
+	}
+
+	// Getters / Setters
 
     public String getCpf() {
         return cpf;

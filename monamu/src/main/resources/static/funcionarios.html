@@ -18,7 +18,8 @@
             <!-- Cabeçalho -->
             <header class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="m-0">Funcionários</h1>
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalFuncionario">
+                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalFuncionario"
+                    onclick="abrirModalNovoFuncionario()">
                     <i class="bi bi-plus"></i>
                     Novo Funcionário
                 </button>
@@ -144,8 +145,157 @@
             </div>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const apiFuncionarios = "/api/funcionarios";
+        const apiLojas = "/api/lojas";
+
+        let lojas = [];
+        const modalFuncionarioEl = document.getElementById("modalFuncionario");
+        const modalFuncionario = new bootstrap.Modal(modalFuncionarioEl);
+
+        function carregarLojas() {
+            return axios.get(apiLojas)
+                .then(res => {
+                    lojas = res.data;
+                    const selectLoja = document.getElementById("lojaFuncionario");
+                    selectLoja.innerHTML = '<option selected disabled>Selecione...</option>';
+                    lojas.forEach(loja => {
+                        const option = document.createElement("option");
+                        option.value = loja.id;
+                        option.textContent = loja.nome;
+                        selectLoja.appendChild(option);
+                    });
+                })
+                .catch(err => console.error("Erro ao carregar lojas:", err));
+        }
+
+        function carregarFuncionarios() {
+            axios.get(apiFuncionarios)
+                .then(res => {
+                    const tbody = document.querySelector("table tbody");
+                    tbody.innerHTML = "";
+                    res.data.forEach(f => {
+                        const nomeLoja = f.loja ? (lojas.find(l => l.id === f.loja.id)?.nome || f.loja.nome) : "";
+                        tbody.innerHTML += `
+                    <tr>
+                        <td>${f.nome}</td>
+                        <td>${f.cargo}</td>
+                        <td>${nomeLoja}</td>
+                        <td>
+                            <button class="action edit" onclick="editarFuncionario(${f.id})">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="action delete" onclick="excluirFuncionario(${f.id})">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>`;
+                    });
+                })
+                .catch(err => console.error("Erro ao carregar funcionários:", err));
+        }
+
+        // Inicialização
+        carregarLojas().then(() => carregarFuncionarios());
+
+        function abrirModalNovoFuncionario() {
+            carregarLojas().then(() => {
+                document.getElementById("formFuncionario").reset();
+                document.getElementById("modalFuncionarioLabel").textContent = "Novo Funcionário";
+                document.getElementById("funcionarioId")?.remove();
+
+                const hoje = new Date();
+                document.getElementById("dataAdmissao").value = hoje.toISOString().substring(0, 10);
+
+                modalFuncionario.show();
+            });
+        }
+
+        // Salvar funcionário
+        document.getElementById("formFuncionario").addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const id = document.getElementById("funcionarioId")?.value;
+            const funcionario = {
+                nome: document.getElementById("nomeFuncionario").value,
+                cpf: document.getElementById("cpfFuncionario").value,
+                cargo: document.getElementById("cargoFuncionario").value,
+                telefone: document.getElementById("telefoneFuncionario").value,
+                email: document.getElementById("emailFuncionario").value,
+                sexo: document.getElementById("sexoFuncionario").value,
+                dataAdmissao: document.getElementById("dataAdmissao").value + "T00:00:00",
+                rua: document.getElementById("ruaFuncionario").value,
+                bairro: document.getElementById("bairroFuncionario").value,
+                cidade: document.getElementById("cidadeFuncionario").value,
+                estado: document.getElementById("estadoFuncionario").value,
+                loja: { id: parseInt(document.getElementById("lojaFuncionario").value) }
+            };
+
+            const metodo = id ? "put" : "post";
+            const url = id ? `${apiFuncionarios}/${id}` : apiFuncionarios;
+
+            axios[metodo](url, funcionario)
+                .then(() => {
+                    carregarFuncionarios();
+                    modalFuncionario.hide();
+                })
+                .catch(err => {
+                    const msg = err.response?.data?.erro || err.response?.data?.message || "Erro ao salvar funcionário";
+                    alert(msg);
+                });
+        });
+
+        function editarFuncionario(id) {
+            carregarLojas().then(() => {
+                axios.get(`${apiFuncionarios}/${id}`)
+                    .then(res => {
+                        const f = res.data;
+
+                        document.getElementById("funcionarioId")?.remove();
+                        const inputId = document.createElement("input");
+                        inputId.type = "hidden";
+                        inputId.id = "funcionarioId";
+                        inputId.value = f.id;
+                        document.getElementById("formFuncionario").appendChild(inputId);
+
+                        document.getElementById("nomeFuncionario").value = f.nome;
+                        document.getElementById("cpfFuncionario").value = f.cpf;
+                        document.getElementById("cargoFuncionario").value = f.cargo;
+                        document.getElementById("telefoneFuncionario").value = f.telefone;
+                        document.getElementById("emailFuncionario").value = f.email;
+                        document.getElementById("sexoFuncionario").value = f.sexo;
+                        document.getElementById("dataAdmissao").value = f.dataAdmissao.substring(0, 10);
+                        document.getElementById("ruaFuncionario").value = f.rua;
+                        document.getElementById("bairroFuncionario").value = f.bairro;
+                        document.getElementById("cidadeFuncionario").value = f.cidade;
+                        document.getElementById("estadoFuncionario").value = f.estado;
+                        document.getElementById("lojaFuncionario").value = f.loja ? f.loja.id : "";
+
+                        document.getElementById("modalFuncionarioLabel").textContent = "Editar Funcionário";
+                        modalFuncionario.show();
+                    })
+                    .catch(err => {
+                        const msg = err.response?.data?.erro || err.response?.data?.message || "Erro ao buscar funcionário";
+                        alert(msg);
+                    });
+            });
+        }
+
+        function excluirFuncionario(id) {
+            if (!confirm("Deseja realmente excluir este funcionário?")) return;
+
+            axios.delete(`${apiFuncionarios}/${id}`)
+                .then(() => carregarFuncionarios())
+                .catch(err => {
+                    const msg = err.response?.data?.erro || err.response?.data?.message || "Erro ao excluir funcionário";
+                    alert(msg);
+                });
+        }
+    </script>
+
 </body>
 
 </html>

@@ -42,6 +42,21 @@ public class Loja {
 	/** CNPJ da loja. */
 	@Column(name = "cnploj", length = 18, unique = true)
 	private String cnpj;
+	
+	public Loja() {
+		
+	}
+
+	public Loja(Integer id, String nome, String rua, String bairro, String cidade, String telefone, String cnpj) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.rua = rua;
+		this.bairro = bairro;
+		this.cidade = cidade;
+		this.telefone = telefone;
+		this.cnpj = cnpj;
+	}
 
 	// --- Getters e Setters ---
 
