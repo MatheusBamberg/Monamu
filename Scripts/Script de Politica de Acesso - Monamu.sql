@@ -8,7 +8,7 @@ on cliente, condicional, desconto, fornecedor, funcionario, item_condicional, it
 to gerente;
 
 grant select
-on desconto_log
+on desconto_log, venda_log
 to gerente;
 
 grant select, insert, update

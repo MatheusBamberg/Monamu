@@ -33,11 +33,11 @@ update desconto
 set valdsc = 25 
 where coddsc = 1;
 
-insert into desconto (nomdsc, valdsc, caddsc, vlddsc, codven)
-values ( 'Black Friday', 25, current_timestamp, '2025-12-20', 5);
+insert into desconto (nomdsc, valdsc, caddsc, vlddsc)
+values ( 'Black Friday', 25, current_timestamp, '2025-12-20');
 
 delete from desconto 
-where coddsc = 7;
+where coddsc = 6;
 
 -----------------------------------------------------------------------
 
@@ -70,12 +70,12 @@ execute procedure venda_trigger();
 select * from venda_log;
 select * from venda;
 
-insert into venda (datven, totven, fompagven, cupdscven, codcli, codfun)
-values (current_timestamp, 2, 'Dinheiro', 1, 1, 3);
+insert into venda (datven, totven, fompagven, cupdscven, codcli, codfun, coddsc)
+values (current_timestamp, 2, 'Dinheiro', 1, 1, 3, 1);
 
 update venda
 set totven = 40
 where codven = 6;
 
-delete from venda 
+delete from venda
 where codven = 6;

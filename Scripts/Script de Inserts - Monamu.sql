@@ -1,101 +1,102 @@
 -- Os blocos de inserts das tabelas devem ser executados em ordem:
 
 -- 1) Tabela pessoa:
-INSERT INTO pessoa (nompes, emapes, sexpes, telpes, ruapes, baipes, cidpes, estpes)
+INSERT INTO Pessoa (nompes, emapes, sexpes, telpes, ruapes, baipes, cidpes, estpes) 
 VALUES
-('João Silva', 'joao.silva@gmail.com', 'M', '51990000001', 'Rua A', 'Centro', 'Porto Alegre', 'RS'),
-('Maria Souza', 'maria.souza@gmail.com', 'F', '51990000002', 'Rua B', 'Centro', 'Porto Alegre', 'RS'),
-('Carlos Lima', 'carlos.lima@gmail.com', 'M', '51990000003', 'Rua C', 'Centro', 'Porto Alegre', 'RS'),
-('Ana Pereira', 'ana.pereira@gmail.com', 'F', '51990000004', 'Rua D', 'Centro', 'Porto Alegre', 'RS'),
-('Fernanda Costa', 'fernanda.costa@gmail.com', 'F', '51990000005', 'Rua E', 'Centro', 'Porto Alegre', 'RS');
+('Matheus Andrade', 'matheus@gmail.com', 'M', '51999990001', 'Rua Central 100', 'Centro', 'Porto Alegre', 'RS'),
+('Julia Martins', 'julia.martins@email.com', 'F', '51999990002', 'Rua Flores 200', 'Jardim', 'Canoas', 'RS'),
+('Carlos Ferreira', 'carlosf@gmail.com', 'M', '51999990003', 'Av Brasil 300', 'Centro', 'Gravataí', 'RS'),
+('Amanda Rocha', 'amanda.rocha@hotmail.com', 'F', '51999990004', 'Rua Sol 50', 'São José', 'Novo Hamburgo', 'RS'),
+('Pedro Lima', 'pedro.lima@gmail.com', 'M', '51999990005', 'Rua Verde 89', 'Ideal', 'Canoas', 'RS');
 
 -- 2) Tabela loja:
-INSERT INTO loja (nomloj, rualoj, bailoj, cidloj, telloj, cnploj)
+INSERT INTO Loja (nomloj, rualoj, bailoj, cidloj, telloj, cnploj) 
 VALUES
-('Loja Central', 'Rua Principal, 100', 'Centro', 'Porto Alegre', '5133334444', '11111111000101'),
-('Loja Norte', 'Av Brasil, 200', 'Norte', 'Porto Alegre', '5133334445', '22222222000102'),
-('Loja Sul', 'Rua Sul, 300', 'Sul', 'Porto Alegre', '5133334446', '33333333000103'),
-('Loja Oeste', 'Rua Oeste, 400', 'Oeste', 'Porto Alegre', '5133334447', '44444444000104'),
-('Loja Leste', 'Av Leste, 500', 'Leste', 'Porto Alegre', '5133334448', '55555555000105');
+('Loja Matriz', 'Av Principal 1000', 'Centro', 'Porto Alegre', '5133330001', '11222333000188'),
+('Loja Norte', 'Rua Norte 400', 'São José', 'Canoas', '5133330002', '22333444000199'),
+('Loja Sul', 'Av Sul 900', 'Centro', 'Novo Hamburgo', '5133330003', '33444555000100'),
+('Loja Leste', 'Rua Leste 150', 'Jardim', 'São Leopoldo', '5133330004', '44555666000111'),
+('Loja Oeste', 'Rua Oeste 600', 'Bela Vista', 'Gravataí', '5133330005', '55666777000122');
 
 -- 3) Tabela cliente:
-INSERT INTO cliente (codcli, cpfcli, datcadcli)
+INSERT INTO Cliente (codcli, cpfcli, datcadcli) 
 VALUES
-(1, '00000000101', NOW()),
-(2, '00000000202', NOW()),
-(3, '00000000303', NOW()),
-(4, '00000000404', NOW()),
-(5, '00000000505', NOW());
+(1, '12345678901', NOW()),
+(2, '23456789012', NOW()),
+(3, '34567890123', NOW()),
+(4, '45678901234', NOW()),
+(5, '56789012345', NOW());
 
 -- 4) Tabela fornecedor:
-INSERT INTO fornecedor (codfor, cnpfor, nomfanfor)
+INSERT INTO Fornecedor (codfor, cnpfor, nomfanfor) 
 VALUES
-(3, '10000000000001', 'Fornecedor A'),
-(4, '20000000000002', 'Fornecedor B'),
-(5, '30000000000003', 'Fornecedor C'),
-(1, '40000000000004', 'Fornecedor D'),
-(2, '50000000000005', 'Fornecedor E');
+(1, '12345678000111', 'Alpha Têxtil'),
+(2, '23456789000122', 'Moda Sul'),
+(3, '34567890000133', 'Estilo Livre'),
+(4, '45678901000144', 'Fashion RS'),
+(5, '56789012000155', 'Tecido & Cia');
 
 -- 5) Tabela funcionario:
-INSERT INTO funcionario (codfun, cpffun, carfun, datadmfun, senfun, codloj)
+INSERT INTO Funcionario (codfun, cpffun, carfun, datadmfun, senfun, codloj) 
 VALUES
-(1, '11111111111', 'Gerente', NOW(), '1234', 1),
-(2, '22222222222', 'Vendedor', NOW(), 'abcd', 2),
-(3, '33333333333', 'Caixa', NOW(), 'senha1', 3),
-(4, '44444444444', 'Estoquista', NOW(), 'senha2', 4),
-(5, '55555555555', 'Vendedor', NOW(), 'senha3', 5);
+(1, '99887766001', 'Vendedor', NOW(), 'senha123', 1),
+(2, '99887766002', 'Gerente', NOW(), 'senhager', 2),
+(3, '99887766003', 'Caixa', NOW(), 'senha321', 3),
+(4, '99887766004', 'Vendedor', NOW(), 'senha456', 4),
+(5, '99887766005', 'Supervisor', NOW(), 'senha789', 5);
 
 -- 6) Tabela produto:
-INSERT INTO produto 
-(nompro, tampro, corpro, tipro, custpro, vendpro, qtdestpro, datcadpro, despro, codloj, codfor)
+INSERT INTO Produto (nompro, tampro, corpro, tipro, custpro, vendpro, qtdestpro, datcadpro, despro, codloj, codfor)
 VALUES
-('Camisa Polo', 'M', 'Azul', 'Vestuário', 30.00, 59.90, 20, NOW(), 'Camisa básica polo', 1, 3),
-('Calça Jeans', '42', 'Azul', 'Vestuário', 50.00, 99.90, 15, NOW(), 'Jeans tradicional', 2, 4),
-('Tênis Running', '40', 'Preto', 'Calçados', 70.00, 149.90, 10, NOW(), 'Tênis esportivo', 3, 5),
-('Boné Aba Reta', 'Único', 'Preto', 'Acessórios', 15.00, 29.90, 25, NOW(), 'Boné estiloso', 4, 1),
-('Moletom Canguru', 'G', 'Cinza', 'Vestuário', 60.00, 129.90, 8, NOW(), 'Moletom confortável', 5, 2);
-
--- 7) Tabela venda:
-INSERT INTO venda (datven, totven, fompagven, cupdscven, codcli, codfun)
-VALUES
-(NOW(), 199.90, 'Pix', 10.00, 1, 1),
-(NOW(), 89.90, 'Credito', NULL, 2, 2),
-(NOW(), 59.90, 'Debito', 5.00, 3, 3),
-(NOW(), 129.90, 'Dinheiro', NULL, 4, 4),
-(NOW(), 49.90, 'Pix', NULL, 5, 5);
+('Camiseta Polo Azul', 'M', 'Azul', 'Camiseta', 30.00, 59.90, 50, NOW(), 'Camiseta polo algodão', 1, 1),
+('Calça Jeans Slim', '42', 'Azul', 'Calça', 80.00, 149.90, 30, NOW(), 'Jeans masculino slim', 2, 2),
+('Jaqueta Couro Eco', 'G', 'Preto', 'Jaqueta', 120.00, 249.90, 20, NOW(), 'Jaqueta ecológica', 3, 3),
+('Vestido Floral', 'M', 'Rosa', 'Vestido', 70.00, 139.90, 25, NOW(), 'Vestido leve floral', 4, 4),
+('Tênis Esportivo', '41', 'Cinza', 'Calçado', 90.00, 179.90, 40, NOW(), 'Tênis para corrida', 5, 5);
 
 -- 8) Tabela desconto:
-INSERT INTO desconto (nomdsc, valdsc, caddsc, vlddsc, codven)
+INSERT INTO Desconto (nomdsc, valdsc, caddsc, vlddsc) 
 VALUES
-('Desconto Verão', 10.00, NOW(), '2025-12-31', 1),
-('Cupom Cliente', 5.00, NOW(), '2025-12-31', 2),
-('Desconto Relâmpago', 7.00, NOW(), '2025-12-31', 3),
-('Promoção Especial', 15.00, NOW(), '2025-12-31', 4),
-('Cupom Novo Cliente', 8.00, NOW(), '2025-12-31', 5);
+('Cupom Verão', 10.00, NOW(), '2025-12-31'),
+('Promoção Inverno', 5.00, NOW(), '2025-07-30'),
+('Black Friday', 20.00, NOW(), '2025-11-30'),
+('Cupom Cliente Novo', 15.00, NOW(), '2026-01-01'),
+('Cupom Aniversário', 12.00, NOW(), '2025-05-30');
+
+-- 7) Tabela venda:
+INSERT INTO Venda (datven, totven, fompagven, cupdscven, codcli, codfun, coddsc) 
+VALUES
+(NOW(), 199.90, 'Pix', 10.00, 1, 1, 1),
+(NOW(), 349.90, 'Credito', 5.00, 2, 2, 2),
+(NOW(), 129.90, 'Debito', 20.00, 3, 3, 3),
+(NOW(), 249.90, 'Dinheiro', 15.00, 4, 4, 4),
+(NOW(), 159.90, 'Pix', 12.00, 5, 5, 5);
 
 -- 9) Tabela condicional:
-INSERT INTO condicional (nomitncon, datretitncon, datdevitncon, obsitncon, codcli)
+INSERT INTO Condicional (nomitncon, datretitncon, datdevitncon, obsitncon, codcli) 
 VALUES
-('Camisa Polo', NOW(), NOW() + INTERVAL '5 days', 'Sem observações', 1),
-('Calça Jeans', NOW(), NOW() + INTERVAL '7 days', 'Cliente pediu reserva', 2),
-('Tênis Running', NOW(), NOW() + INTERVAL '3 days', NULL, 3),
-('Boné Aba Reta', NOW(), NOW() + INTERVAL '4 days', NULL, 4),
-('Moletom Canguru', NOW(), NOW() + INTERVAL '6 days', 'Cliente interessado', 5);
+('2 Camisetas Polo', NOW(), NOW() + INTERVAL '7 days', 'Cliente levou para experimentar', 1),
+('1 Jaqueta Couro', NOW(), NOW() + INTERVAL '5 days', 'Cliente irá decidir', 2),
+('3 Tênis Esportes', NOW(), NOW() + INTERVAL '10 days', 'Pode devolver sem caixa', 3),
+('1 Vestido Floral', NOW(), NOW() + INTERVAL '4 days', 'Cliente pediu reserva', 4),
+('2 Calças Jeans', NOW(), NOW() + INTERVAL '6 days', NULL, 5);
 
 -- 10) Tabela item_condicional:
-INSERT INTO item_condicional (qtditecon, codcnd, codpro)
+INSERT INTO item_condicional (qtditecon, codcnd, codpro) 
 VALUES
-(1, 1, 1),
-(2, 2, 2),
-(1, 3, 3),
+(2, 1, 1),
+(1, 2, 3),
+(3, 3, 5),
 (1, 4, 4),
-(2, 5, 5);
+(2, 5, 2);
+
+select * from venda;
 
 -- 11) Tabela item_venda:
-INSERT INTO item_venda (qtditeven, vlruniteven, vlrtotiteven, codven, codpro)
+INSERT INTO item_venda (qtditeven, vlruniteven, vlrtotiteven, codven, codpro) 
 VALUES
-(1, 59.90, 59.90, 1, 1),
-(1, 89.90, 89.90, 2, 2),
-(1, 59.90, 59.90, 3, 3),
-(1, 129.90, 129.90, 4, 4),
-(1, 49.90, 49.90, 5, 5);
+(2, 59.90, 119.80, 1, 1),
+(1, 149.90, 149.90, 2, 2),
+(1, 129.90, 129.90, 3, 3),
+(1, 139.90, 139.90, 4, 4),
+(1, 179.90, 179.90, 5, 5);
