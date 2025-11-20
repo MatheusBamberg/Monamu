@@ -75,7 +75,31 @@ public class Produto {
     @JoinColumn(name = "codfor", nullable = false)
     private Fornecedor fornecedor;
 
-    // Getters / Setters
+    public Produto() {
+    	
+    }
+    
+    public Produto(Integer id, String nome, String tamanho, String cor, String tipo, BigDecimal custo, BigDecimal venda,
+			Integer quantidadeEstoque, LocalDateTime dataCadastro, String descricao, Boolean ativo, Loja loja,
+			Fornecedor fornecedor) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.tamanho = tamanho;
+		this.cor = cor;
+		this.tipo = tipo;
+		this.custo = custo;
+		this.venda = venda;
+		this.quantidadeEstoque = quantidadeEstoque;
+		this.dataCadastro = dataCadastro;
+		this.descricao = descricao;
+		this.ativo = ativo;
+		this.loja = loja;
+		this.fornecedor = fornecedor;
+	}
+
+
+	// Getters / Setters
 
     public Integer getId() {
         return id;

@@ -20,6 +20,19 @@ public class Fornecedor extends Pessoa {
 	/** Nome fantasia do fornecedor. */
 	@Column(name = "nomfanfor", length = 100)
 	private String nomeFantasia;
+	
+	public Fornecedor() {
+		
+	}
+
+	public Fornecedor(Integer id, String nome, String email, Character sexo, String telefone, String rua, String bairro,
+			String cidade, String estado, String cnpj, String nomeFantasia) {
+		super(id, nome, email, sexo, telefone, rua, bairro, cidade, estado);
+		this.cnpj = cnpj;
+		this.nomeFantasia = nomeFantasia;
+	}
+
+
 
 	// --- Getters e Setters ---
 
