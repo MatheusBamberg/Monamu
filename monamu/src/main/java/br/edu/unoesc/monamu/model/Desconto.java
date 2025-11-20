@@ -41,9 +41,9 @@ public class Desconto {
 	@Column(name = "vlddsc")
 	private LocalDate dataValidade;
 	
-	/** Venda na qual o desconto foi aplicado (opcional). */
+	/** Venda na qual o desconto foi aplicado */
 	@ManyToOne
-	@JoinColumn(name = "codven") // nullable=true implícito
+	@JoinColumn(name = "codven", nullable = true)
 	private Venda venda;
 
 	// --- Getters e Setters ---
