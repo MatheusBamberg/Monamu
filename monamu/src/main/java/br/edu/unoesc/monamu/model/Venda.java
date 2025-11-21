@@ -2,7 +2,12 @@ package br.edu.unoesc.monamu.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -50,7 +56,33 @@ public class Venda {
 	@JoinColumn(name = "codfun", nullable = false)
 	private Funcionario funcionario;
 
-	// --- Getters e Setters ---
+	@ManyToOne
+	@JoinColumn(name = "coddsc")
+	private Desconto desconto;
+
+	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private List<ItemVenda> itens = new ArrayList<>();
+
+	public Venda() {
+		
+	}
+	
+
+	public Venda(Integer id, LocalDateTime dataVenda, BigDecimal totalVenda, String formaPagamento,
+			BigDecimal valorCupomDesconto, Cliente cliente, Funcionario funcionario, Desconto desconto,
+			List<ItemVenda> itens) {
+		super();
+		this.id = id;
+		this.dataVenda = dataVenda;
+		this.totalVenda = totalVenda;
+		this.formaPagamento = formaPagamento;
+		this.valorCupomDesconto = valorCupomDesconto;
+		this.cliente = cliente;
+		this.funcionario = funcionario;
+		this.desconto = desconto;
+		this.itens = itens;
+	}
 
 	public Integer getId() {
 		return id;
@@ -107,4 +139,27 @@ public class Venda {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
+
+	public Desconto getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(Desconto desconto) {
+		this.desconto = desconto;
+	}
+
+	public List<ItemVenda> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemVenda> itens) {
+		this.itens = itens;
+	}
+
+	/** Adiciona um item à lista */
+	public void addItemVenda(ItemVenda item) {
+		this.itens.add(item);
+		item.setVenda(this);
+	}
+	
 }
