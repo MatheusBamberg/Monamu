@@ -19,7 +19,7 @@
         <section class="container bg-white p-4 rounded-4 shadow-sm" id="container-condicional">
             <header class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="m-0">Condicional</h1>
-                <button class="btn" data-bs-toggle="modal" data-bs-target="#modalCondicional">
+                <button class="btn btn-primary" onclick="abrirModalNovo()">
                     <i class="bi bi-plus"></i>
                     Novo Condicional
                 </button>
@@ -62,29 +62,30 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Cliente</label>
-                                <select class="form-select" required>
+                                <select id="clienteCondicional" class="form-select" required>
                                     <option selected disabled>Selecione o cliente...</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Itens</label>
-                                <input type="text" class="form-control" placeholder="Ex: Camisa, Calça" required>
+                                <input id="nomeItemCondicional" type="text" class="form-control"
+                                    placeholder="Ex: Camisa, Calça" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Data de Retirada</label>
-                                <input type="date" class="form-control" required>
+                                <input id="dataRetiradaCondicional" type="datetime-local" class="form-control" required>
                             </div>
 
                             <div class="col-md-6">
-                                <label class="form-label">Data de Devolução</label>
-                                <input type="date" class="form-control">
+                                <label class="form-label">Data Prevista Devolução</label>
+                                <input id="dataDevolucaoCondicional" type="datetime-local" class="form-control">
                             </div>
 
                             <div class="col-12">
                                 <label class="form-label">Observações</label>
-                                <textarea class="form-control" rows="3"></textarea>
+                                <textarea id="obsCondicional" class="form-control" rows="3"></textarea>
                             </div>
 
                             <hr class="mt-4 mb-2">
@@ -92,18 +93,19 @@
 
                             <div class="col-md-6">
                                 <label class="form-label">Produto</label>
-                                <select class="form-select">
+                                <select class="form-select" id="produtoCondicional">
                                     <option selected disabled>Selecione o produto...</option>
                                 </select>
                             </div>
 
                             <div class="col-md-6">
                                 <label class="form-label">Quantidade</label>
-                                <input type="number" class="form-control" min="1" value="1">
+                                <input id="quantidadeCondicional" type="number" class="form-control" min="1" value="1">
                             </div>
 
                             <div class="col-12 d-flex justify-content-end mt-2">
-                                <button type="button" class="btn btn-outline-secondary me-2">Adicionar Item</button>
+                                <button type="button" class="btn btn-outline-secondary me-2"
+                                    onclick="adicionarItem()">Adicionar Item</button>
                             </div>
 
                         </div>
@@ -120,6 +122,165 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const apiCondicional = "/api/condicionais";
+        const apiItemCondicional = "/api/item-condicionais";
+        const apiClientes = "/api/clientes";
+        const apiProdutos = "/api/produtos";
+
+        const modalCondicionalEl = document.getElementById("modalCondicional");
+        const modalCondicional = new bootstrap.Modal(modalCondicionalEl);
+
+        let itensTemp = [];
+
+        function carregarCondicionais() {
+            axios.get(apiCondicional)
+                .then(res => {
+                    const tbody = document.querySelector("#container-condicional tbody");
+                    tbody.innerHTML = "";
+                    res.data.forEach(c => {
+                        tbody.innerHTML += `
+                        <tr>
+                            <td>${c.cliente?.nome || "N/A"}</td>
+                            <td>${c.nomeItem || "-"}</td>
+                            <td>${c.dataRetirada ? new Date(c.dataRetirada).toLocaleDateString('pt-BR') : "-"}</td>
+                            <td>${c.dataDevolucao ? new Date(c.dataDevolucao).toLocaleDateString('pt-BR') : "-"}</td>
+                            <td>${c.observacao || "-"}</td>
+                            <td>
+                                <button class="btn btn-sm btn-warning me-1" onclick="editarCondicional(${c.id})">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+                    });
+                })
+                .catch(err => console.error("Erro ao carregar condicionais:", err));
+        }
+
+        function abrirModalNovo() {
+            document.getElementById("formCondicional").reset();
+            document.getElementById("condicionalId")?.remove();
+            itensTemp = [];
+            atualizarListaItens();
+            document.getElementById("modalCondicionalLabel").textContent = "Novo Condicional";
+
+            carregarClientes();
+            carregarProdutos();
+            modalCondicional.show();
+        }
+
+        function carregarClientes() {
+            const selectCliente = document.getElementById("clienteCondicional");
+            selectCliente.innerHTML = `<option disabled selected>Selecione o cliente...</option>`;
+            axios.get(apiClientes)
+                .then(res => res.data.forEach(c => {
+                    const option = document.createElement("option");
+                    option.value = c.id;
+                    option.textContent = c.nome;
+                    selectCliente.appendChild(option);
+                }))
+                .catch(err => console.error("Erro ao carregar clientes:", err));
+        }
+
+        function carregarProdutos() {
+            const selectProduto = document.getElementById("produtoCondicional");
+            selectProduto.innerHTML = `<option disabled selected>Selecione o produto...</option>`;
+            axios.get(apiProdutos)
+                .then(res => res.data.forEach(p => {
+                    const option = document.createElement("option");
+                    option.value = p.id;
+                    option.textContent = p.nome;
+                    selectProduto.appendChild(option);
+                }))
+                .catch(err => console.error("Erro ao carregar produtos:", err));
+        }
+
+        function adicionarItem() {
+            const produtoId = document.getElementById("produtoCondicional").value;
+            const quantidade = document.getElementById("quantidadeCondicional").value;
+            if (!produtoId || quantidade <= 0) return alert("Selecione um produto e quantidade válida.");
+
+            itensTemp.push({ produtoId, quantidadeItem: quantidade });
+            atualizarListaItens();
+        }
+
+        function atualizarListaItens() {
+            let html = itensTemp.map((item, i) =>
+                `<li>${item.quantidadeItem}x Produto #${item.produtoId}
+                <button type="button" onclick="removerItem(${i})" class="btn btn-sm btn-danger ms-2">X</button></li>`).join("");
+
+            let lista = document.getElementById("listaItens");
+            if (!lista) {
+                lista = document.createElement("ul");
+                lista.id = "listaItens";
+                lista.classList.add("mt-2");
+                document.querySelector("#formCondicional").appendChild(lista);
+            }
+            lista.innerHTML = html;
+        }
+
+        function removerItem(index) {
+            itensTemp.splice(index, 1);
+            atualizarListaItens();
+        }
+
+        document.getElementById("formCondicional").addEventListener("submit", e => {
+            e.preventDefault();
+            const id = document.getElementById("condicionalId")?.value;
+
+            const condicional = {
+                cliente: { id: parseInt(document.getElementById("clienteCondicional").value) },
+                nomeItem: document.getElementById("nomeItemCondicional").value,
+                dataRetirada: document.getElementById("dataRetiradaCondicional").value,
+                dataDevolucao: document.getElementById("dataDevolucaoCondicional").value || null,
+                observacao: document.getElementById("obsCondicional").value,
+                itens: itensTemp
+            };
+
+            const metodo = id ? "put" : "post";
+            const url = id ? `${apiCondicional}/${id}` : apiCondicional;
+
+            axios[metodo](url, condicional)
+                .then(() => {
+                    carregarCondicionais();
+                    modalCondicional.hide();
+                })
+                .catch(err => alert(err.response?.data?.message || "Erro ao salvar condicional"));
+        });
+
+        function editarCondicional(id) {
+            Promise.all([
+                carregarClientes(),
+                carregarProdutos(),
+                axios.get(`${apiCondicional}/${id}`)
+            ]).then(([, , responseCondicional]) => {
+                const c = responseCondicional.data;
+
+                document.getElementById("condicionalId")?.remove();
+                const inputId = document.createElement("input");
+                inputId.type = "hidden";
+                inputId.id = "condicionalId";
+                inputId.value = c.id;
+                document.getElementById("formCondicional").appendChild(inputId);
+
+                document.getElementById("clienteCondicional").value = c.cliente.id;
+                document.getElementById("nomeItemCondicional").value = c.nomeItem;
+                document.getElementById("dataRetiradaCondicional").value = c.dataRetirada?.substring(0, 16) || "";
+                document.getElementById("dataDevolucaoCondicional").value = c.dataDevolucao?.substring(0, 16) || "";
+                document.getElementById("obsCondicional").value = c.observacao || "";
+
+                itensTemp = c.itens ? c.itens.map(i => ({ produtoId: i.produto.id, quantidadeItem: i.quantidadeItem })) : [];
+                atualizarListaItens();
+
+                document.getElementById("modalCondicionalLabel").textContent = "Editar Condicional";
+                modalCondicional.show();
+            }).catch(() => alert("Erro ao buscar dados para edição."));
+        }
+
+        carregarCondicionais();
+    </script>
 
 </body>
 

@@ -44,6 +44,20 @@ public class Condicional {
 	@JoinColumn(name = "codcli", nullable = false)
 	private Cliente cliente;
 
+	public Condicional() {
+		
+	}
+	
+	public Condicional(Integer id, String nomeItem, LocalDateTime dataRetirada, LocalDateTime dataDevolucao,
+			String observacao, Cliente cliente) {
+		this.id = id;
+		this.nomeItem = nomeItem;
+		this.dataRetirada = dataRetirada;
+		this.dataDevolucao = dataDevolucao;
+		this.observacao = observacao;
+		this.cliente = cliente;
+	}
+
 	// --- Getters e Setters ---
 
 	public Integer getId() {

@@ -104,6 +104,12 @@
         const modalDescontoEl = document.getElementById("modalDesconto");
         const modalDesconto = new bootstrap.Modal(modalDescontoEl);
 
+        function formatarData(data) {
+            if (!data) return "";
+            const partes = data.split("-");
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+
         function carregarDescontos() {
             axios.get(apiDescontos)
                 .then(res => {
@@ -115,8 +121,8 @@
                         <tr>
                             <td>${d.nome}</td>
                             <td>${d.valor}%</td>
-                            <td>${d.dataCadastro ? d.dataCadastro.substring(0, 10) : ""}</td>
-                            <td>${d.dataValidade}</td>
+                            <td>${formatarData(d.dataCadastro?.substring(0, 10))}</td>
+                           <td>${formatarData(d.dataValidade)}</td>
                             <td class="text-center">
                                 <button class="action edit" onclick="editarDesconto(${d.id})">
                                     <i class="bi bi-pencil"></i>

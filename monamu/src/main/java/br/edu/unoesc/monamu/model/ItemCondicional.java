@@ -36,7 +36,19 @@ public class ItemCondicional {
     @JoinColumn(name = "codpro", nullable = false)
     private Produto produto;
 
-    // Getters / Setters
+    public ItemCondicional() {
+    	
+    }
+    
+    public ItemCondicional(Integer id, Integer quantidadeItem, Condicional condicional, Produto produto) {
+		super();
+		this.id = id;
+		this.quantidadeItem = quantidadeItem;
+		this.condicional = condicional;
+		this.produto = produto;
+	}
+
+	// Getters / Setters
 
     public Integer getId() {
         return id;
