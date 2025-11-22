@@ -176,7 +176,7 @@ CREATE TABLE Venda (
   cupdscven numeric(5, 2), 
   codcli    int4 NOT NULL, 
   codfun    int4 NOT NULL, 
-  coddsc    int4 NOT NULL, 
+  coddsc    int4, 
   CONSTRAINT pkey_venda 
     PRIMARY KEY (codven));
 COMMENT ON TABLE Venda IS 'Cadastro de Vendas';
