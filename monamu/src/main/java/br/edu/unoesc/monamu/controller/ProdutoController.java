@@ -56,4 +56,10 @@ public class ProdutoController {
 		produtoService.deletarProduto(id);
 		return ResponseEntity.noContent().build();
 	}
+
+	@GetMapping("/com-estoque")
+	public List<Produto> listarComEstoque() {
+		return produtoService.listarApenasComEstoque();
+	}
+
 }

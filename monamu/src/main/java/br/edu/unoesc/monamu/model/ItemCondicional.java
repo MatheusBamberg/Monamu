@@ -1,5 +1,7 @@
 package br.edu.unoesc.monamu.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,6 +31,7 @@ public class ItemCondicional {
     /** Condicional à qual este item pertence. */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codcnd", nullable = false)
+    @JsonBackReference
     private Condicional condicional;
 
     /** Produto que faz parte do item. */

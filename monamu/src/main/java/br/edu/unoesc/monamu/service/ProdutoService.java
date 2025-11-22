@@ -53,6 +53,10 @@ public class ProdutoService {
 		return produtoRepository.save(produto);
 	}
 
+	public List<Produto> listarApenasComEstoque() {
+	    return produtoRepository.findByQuantidadeEstoqueGreaterThan(0);
+	}
+
 	public void deletarProduto(Integer id) {
 		Produto existente = buscarPorId(id);
 		produtoRepository.delete(existente);

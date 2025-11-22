@@ -1,7 +1,12 @@
 package br.edu.unoesc.monamu.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -17,7 +23,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "condicional")
 public class Condicional {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codcnd")
@@ -40,14 +46,17 @@ public class Condicional {
 	private String observacao;
 	
 	/** Cliente que retirou a condicional. */
+	@OneToMany(mappedBy = "condicional", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private List<ItemCondicional> itens = new ArrayList<>();
+
 	@ManyToOne
 	@JoinColumn(name = "codcli", nullable = false)
 	private Cliente cliente;
 
 	public Condicional() {
-		
 	}
-	
+
 	public Condicional(Integer id, String nomeItem, LocalDateTime dataRetirada, LocalDateTime dataDevolucao,
 			String observacao, Cliente cliente) {
 		this.id = id;
@@ -59,7 +68,6 @@ public class Condicional {
 	}
 
 	// --- Getters e Setters ---
-
 	public Integer getId() {
 		return id;
 	}
@@ -107,4 +115,14 @@ public class Condicional {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public List<ItemCondicional> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItemCondicional> itens) {
+		this.itens = itens;
+	}
+
+	
 }

@@ -36,8 +36,16 @@ public class CondicionalController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Condicional> criar(@RequestBody Condicional condicional) {
-		return ResponseEntity.status(201).body(condicionalService.criarCondicional(condicional));
+	public ResponseEntity<?> criar(@RequestBody Condicional condicional) {
+		try {
+			Condicional salvo = condicionalService.criarCondicional(condicional);
+			return ResponseEntity.ok(salvo);
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().body("Erro inesperado: " + e.getMessage());
+		}
 	}
 
 	@PutMapping("/{id}")
