@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,8 +16,9 @@
   <div class="app-container">
     <aside class="sidebar" id="sidebar">
       <nav>
-        <img id="logo" src="imagens/logo.png" alt="Logo na cor preta com um vestido no cabide, uma linha com um diamante no meio em cima da escrita Monamu">
-        
+        <img id="logo" src="imagens/logo.png"
+          alt="Logo na cor preta com um vestido no cabide, uma linha com um diamante no meio em cima da escrita Monamu">
+
         <hr>
         <ul>
           <li><a href="dashboard.html" class="active" data-page="dashboard.html"><i
@@ -38,47 +40,30 @@
 
     <!-- Conteúdo -->
     <main class="main-content">
-      <!-- Cabeçalho mobile -->
-      <div class="mobile-header d-md-none p-2 bg-white shadow-sm d-flex align-items-center">
+      <div class="mobile-header d-md-none">
         <button class="btn btn-outline-primary" id="toggleSidebar">
-          <i class="bi bi-list fs-3 " id="toggleSidebar"></i>
+          <i class="bi-list fs-3" id="menuMobile"></i>
         </button>
+        <span class="ms-4" id="appbarTitulo">MONAMU</span>
       </div>
 
-      <!-- Onde as páginas serão carregadas -->
-      <div id="content" class="content-area p-4"></div>
+      <iframe id="content" src="dashboard.html"></iframe>
     </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
     const links = document.querySelectorAll('.sidebar a');
     const sidebar = document.getElementById('sidebar');
     const content = document.getElementById('content');
     const toggleSidebarBtn = document.getElementById('toggleSidebar');
 
-    // código comentado está dando problemas
-/*    // Carrega a página
-    async function loadPage(page) {
-      try {
-        const response = await fetch(page);
-        const html = await response.text();
-        content.innerHTML = html;
-        window.scrollTo(0, 0);
-      } catch (err) {
-        content.innerHTML = `<div class="p-4 text-danger">Erro ao carregar a página: ${err}</div>`;
-      }
-    }
-
-    // Evento de clique nos links
     links.forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
         links.forEach(l => l.classList.remove('active'));
         link.classList.add('active');
-        const page = link.getAttribute('data-page');
-        loadPage(page);
+        content.src = link.getAttribute('data-page');
 
         if (window.innerWidth < 768) sidebar.classList.remove('show');
       });
@@ -87,10 +72,32 @@
     toggleSidebarBtn.addEventListener('click', () => {
       sidebar.classList.toggle('show');
     });
-    */
-
-    loadPage('produtos.html');
   </script>
 </body>
 
 </html>
+
+<style>
+  iframe#content {
+    flex-grow: 1;
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  #toggleSidebar:hover,
+  .bi-list:hover {
+    background-color: #6c3ef1;
+    color: white;
+  }
+
+  #appbarTitulo {
+    font-size: 1.5rem;
+    font-family: "Times New Roman", Times, serif;
+  }
+
+  .bi-list {
+    color: #6c3ef1;
+  }
+</style>

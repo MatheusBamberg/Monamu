@@ -39,9 +39,8 @@ html {
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
 }
 
-.sidebar h1 {
-  font-size: 1.4rem;
-  color: #4b4b6b;
+.sidebar img#logo {
+  width: 190px;
   margin-bottom: 1rem;
 }
 
@@ -98,15 +97,23 @@ html {
 
 .mobile-header {
   display: none;
+  padding: 0.5rem 1rem;
+  align-items: center;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 400;
 }
 
-#logo {
-  width: 190px;
-}
-/* ======= MOBILE ======= */
+/* MOBILE */
 @media (max-width: 767px) {
   .sidebar {
     transform: translateX(-100%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1050;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.15);
   }
 
   .sidebar.show {
@@ -119,5 +126,15 @@ html {
 
   .mobile-header {
     display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: white !important;
+    z-index: 1040;
+  }
+
+  .content-area {
+    padding-top: 56px;
   }
 }
