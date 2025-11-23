@@ -27,10 +27,20 @@ public class ItemVendaService {
 		this.produtoRepository = produtoRepository;
 	}
 
+	/**
+	 * Lista todos os itens de venda.
+	 * @return Uma lista de todos os itens de venda.
+	 */
 	public List<ItemVenda> listarTodos() {
 		return itemVendaRepository.findAll();
 	}
 
+	/**
+	 * Busca um item de venda pelo seu ID.
+	 * @param id O ID do item de venda a ser buscado.
+	 * @return O item de venda encontrado.
+	 * @throws RuntimeException Se o ItemVenda não for encontrado.
+	 */
 	public ItemVenda buscarPorId(Integer id) {
 		Optional<ItemVenda> item = itemVendaRepository.findById(id);
 		if (item.isPresent()) {
@@ -40,6 +50,13 @@ public class ItemVendaService {
 		}
 	}
 
+	/**
+	 * Cria um novo item de venda, valida a existência da venda e do produto,
+	 * calcula o valor total e o salva.
+	 * @param item O item de venda a ser criado.
+	 * @return O item de venda salvo.
+	 * @throws RuntimeException Se a venda ou o produto não forem encontrados.
+	 */
 	public ItemVenda criarItemVenda(ItemVenda item) {
 
 		Optional<Venda> vendaOpt = vendaRepository.findById(item.getVenda().getId());
@@ -68,6 +85,13 @@ public class ItemVendaService {
 		return itemVendaRepository.save(item);
 	}
 
+	/**
+	 * Atualiza um item de venda existente, recalcula seu valor total e salva.
+	 * @param id O ID do item de venda a ser atualizado.
+	 * @param novo O objeto item de venda com os novos dados.
+	 * @return O item de venda atualizado.
+	 * @throws RuntimeException Se o ItemVenda ou o Produto não forem encontrados.
+	 */
 	public ItemVenda atualizarItemVenda(Integer id, ItemVenda novo) {
 		Optional<ItemVenda> itemOpt = itemVendaRepository.findById(id);
 		if (!itemOpt.isPresent()) {
@@ -93,6 +117,11 @@ public class ItemVendaService {
 		return itemVendaRepository.save(item);
 	}
 
+	/**
+	 * Deleta um item de venda pelo seu ID.
+	 * @param id O ID do item de venda a ser deletado.
+	 * @throws RuntimeException Se o ItemVenda não for encontrado.
+	 */
 	public void deletarItemVenda(Integer id) {
 		if (!itemVendaRepository.existsById(id)) {
 			throw new RuntimeException("ItemVenda não encontrado: " + id);
