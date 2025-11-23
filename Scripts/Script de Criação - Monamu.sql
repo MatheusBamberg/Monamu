@@ -22,6 +22,7 @@ CREATE TABLE Condicional (
   datretitncon timestamp NOT NULL, 
   datdevitncon timestamp NOT NULL, 
   obsitncon    varchar(150), 
+  devitncon    bool, 
   codcli       int4 NOT NULL, 
   CONSTRAINT pkey_condicional 
     PRIMARY KEY (codcnd));
@@ -31,6 +32,7 @@ COMMENT ON COLUMN Condicional.nomitncon IS 'Nome dos itens levados no Condiciona
 COMMENT ON COLUMN Condicional.datretitncon IS 'Data da retirada do item no condicional';
 COMMENT ON COLUMN Condicional.datdevitncon IS 'Data da devolução do item no condicional';
 COMMENT ON COLUMN Condicional.obsitncon IS 'Observações do condicional';
+COMMENT ON COLUMN Condicional.devitncon IS 'Devolução do condicional';
 
 CREATE TABLE Desconto (
   coddsc SERIAL NOT NULL, 

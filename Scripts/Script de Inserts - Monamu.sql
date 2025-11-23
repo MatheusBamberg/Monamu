@@ -73,13 +73,13 @@ VALUES
 (NOW(), 159.90, 'Pix', 12.00, 5, 5, 5);
 
 -- 9) Tabela condicional:
-INSERT INTO Condicional (nomitncon, datretitncon, datdevitncon, obsitncon, codcli) 
+INSERT INTO Condicional (nomitncon, datretitncon, datdevitncon, obsitncon, devitncon, codcli) 
 VALUES
-('2 Camisetas Polo', NOW(), NOW() + INTERVAL '7 days', 'Cliente levou para experimentar', 1),
-('1 Jaqueta Couro', NOW(), NOW() + INTERVAL '5 days', 'Cliente irá decidir', 2),
-('3 Tênis Esportes', NOW(), NOW() + INTERVAL '10 days', 'Pode devolver sem caixa', 3),
-('1 Vestido Floral', NOW(), NOW() + INTERVAL '4 days', 'Cliente pediu reserva', 4),
-('2 Calças Jeans', NOW(), NOW() + INTERVAL '6 days', NULL, 5);
+('2 Camisetas Polo', NOW(), NOW() + INTERVAL '7 days', 'Cliente levou para experimentar', false, 1),
+('1 Jaqueta Couro', NOW(), NOW() + INTERVAL '5 days', 'Cliente irá decidir', false, 2),
+('3 Tênis Esportes', NOW(), NOW() + INTERVAL '10 days', 'Pode devolver sem caixa', false, 3),
+('1 Vestido Floral', NOW(), NOW() + INTERVAL '4 days', 'Cliente pediu reserva', false, 4),
+('2 Calças Jeans', NOW(), NOW() + INTERVAL '6 days', NULL, false, 5);
 
 -- 10) Tabela item_condicional:
 INSERT INTO item_condicional (qtditecon, codcnd, codpro) 
@@ -89,8 +89,6 @@ VALUES
 (3, 3, 5),
 (1, 4, 4),
 (2, 5, 2);
-
-select * from venda;
 
 -- 11) Tabela item_venda:
 INSERT INTO item_venda (qtditeven, vlruniteven, vlrtotiteven, codven, codpro) 
