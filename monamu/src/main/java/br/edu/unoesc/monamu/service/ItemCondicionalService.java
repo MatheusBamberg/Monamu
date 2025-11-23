@@ -21,16 +21,15 @@ public class ItemCondicionalService {
 		return itemRepository.findAll();
 	}
 
-	
 	public ItemCondicional buscarPorId(Integer id) {
-        Optional<ItemCondicional> itemCondicional = itemRepository.findById(id);
+		Optional<ItemCondicional> itemCondicional = itemRepository.findById(id);
 
-        if (itemCondicional.isPresent()) {
-            return itemCondicional.get();
-        } else {
-            throw new RuntimeException("Item condicional não encontrado: " + id);
-        }
-    }
+		if (itemCondicional.isPresent()) {
+			return itemCondicional.get();
+		} else {
+			throw new RuntimeException("Item condicional não encontrado: " + id);
+		}
+	}
 
 	public ItemCondicional criarItem(ItemCondicional item) {
 		return itemRepository.save(item);

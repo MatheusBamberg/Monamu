@@ -1,6 +1,7 @@
 package br.edu.unoesc.monamu.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -59,16 +60,29 @@ public class CondicionalController {
 		condicionalService.deletarCondicional(id);
 		return ResponseEntity.noContent().build();
 	}
-	
-	 @PatchMapping("/{id}/devolver")
-	    public ResponseEntity<?> devolver(@PathVariable Integer id) {
-	        try {
-	            Condicional atualizado = condicionalService.marcarComoDevolvido(id);
-	            return ResponseEntity.ok(atualizado);
-	        } catch (RuntimeException e) {
-	            return ResponseEntity.badRequest().body(e.getMessage());
-	        } catch (Exception e) {
-	            return ResponseEntity.status(500).body("Erro ao marcar devolução: " + e.getMessage());
-	        }
-	    }
+
+	@PatchMapping("/{id}/devolver")
+	public ResponseEntity<?> devolver(@PathVariable Integer id) {
+		try {
+			Condicional atualizado = condicionalService.marcarComoDevolvido(id);
+			return ResponseEntity.ok(atualizado);
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Erro ao marcar devolução: " + e.getMessage());
+		}
+	}
+
+	@GetMapping("/total-ativas")
+	public Map<String, Long> getTotalCondicionaisAtivas() {
+		long totalAtivas = condicionalService.contarCondicionaisAtivas();
+		return Map.of("totalAtivas", totalAtivas);
+	}
+
+	@GetMapping("/vencendo-hoje")
+	public ResponseEntity<List<Condicional>> getCondicionaisVencendoHoje() {
+		List<Condicional> vencendoHoje = condicionalService.listarCondicionaisVencendoHoje();
+		return ResponseEntity.ok(vencendoHoje);
+	}
+
 }

@@ -1,6 +1,7 @@
 package br.edu.unoesc.monamu.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,6 +61,14 @@ public class ProdutoController {
 	@GetMapping("/com-estoque")
 	public List<Produto> listarComEstoque() {
 		return produtoService.listarApenasComEstoque();
+	}
+
+	@GetMapping("/total")
+	public Map<String, Object> getTotalEstoque() {
+		long totalEstoque = produtoService.contarProdutosComEstoque();
+		List<Produto> estoqueBaixo = produtoService.listarEstoqueBaixo(5); // limite de baixo estoque = 5
+
+		return Map.of("totalEstoque", totalEstoque, "estoqueBaixo", estoqueBaixo);
 	}
 
 }

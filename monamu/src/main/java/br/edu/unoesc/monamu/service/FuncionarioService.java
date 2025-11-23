@@ -14,64 +14,62 @@ import br.edu.unoesc.monamu.repository.LojaRepository;
 @Service
 public class FuncionarioService {
 
-    private final FuncionarioRepository funcionarioRepository;
-    private final LojaRepository lojaRepository;
+	private final FuncionarioRepository funcionarioRepository;
+	private final LojaRepository lojaRepository;
 
-    public FuncionarioService(FuncionarioRepository funcionarioRepository, LojaRepository lojaRepository) {
-        this.funcionarioRepository = funcionarioRepository;
-        this.lojaRepository = lojaRepository;
-    }
+	public FuncionarioService(FuncionarioRepository funcionarioRepository, LojaRepository lojaRepository) {
+		this.funcionarioRepository = funcionarioRepository;
+		this.lojaRepository = lojaRepository;
+	}
 
-    public List<Funcionario> listarTodos() {
-        return funcionarioRepository.findAll();
-    }
+	public List<Funcionario> listarTodos() {
+		return funcionarioRepository.findAll();
+	}
 
-    public Funcionario buscarPorId(Integer id) {
-        Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
+	public Funcionario buscarPorId(Integer id) {
+		Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
 
-        if (funcionario.isPresent()) {
-            return funcionario.get();
-        } else {
-            throw new RuntimeException("Funcionário não encontrado: " + id);
-        }
-    }
+		if (funcionario.isPresent()) {
+			return funcionario.get();
+		} else {
+			throw new RuntimeException("Funcionário não encontrado: " + id);
+		}
+	}
 
-    public Funcionario criarFuncionario(Funcionario funcionario) {
+	public Funcionario criarFuncionario(Funcionario funcionario) {
 
-        // verifica se a loja existe
-        Loja loja = lojaRepository.findById(funcionario.getLoja().getId())
-                .orElseThrow(() -> new RuntimeException("Loja não encontrada: " + funcionario.getLoja().getId()));
+		// verifica se a loja existe
+		Loja loja = lojaRepository.findById(funcionario.getLoja().getId())
+				.orElseThrow(() -> new RuntimeException("Loja não encontrada: " + funcionario.getLoja().getId()));
 
-        funcionario.setLoja(loja);
-        funcionario.setDataAdmissao(LocalDateTime.now());
+		funcionario.setLoja(loja);
+		funcionario.setDataAdmissao(LocalDateTime.now());
 
-        return funcionarioRepository.save(funcionario);
-    }
+		return funcionarioRepository.save(funcionario);
+	}
 
+	public Funcionario atualizarFuncionario(Integer id, Funcionario novoFuncionario) {
+		Funcionario funcionario = buscarPorId(id);
 
-    public Funcionario atualizarFuncionario(Integer id, Funcionario novoFuncionario) {
-        Funcionario funcionario = buscarPorId(id);
+		funcionario.setNome(novoFuncionario.getNome());
+		funcionario.setCpf(novoFuncionario.getCpf());
+		funcionario.setCargo(novoFuncionario.getCargo());
+		funcionario.setSenha(novoFuncionario.getSenha());
+		funcionario.setTelefone(novoFuncionario.getTelefone());
+		funcionario.setEmail(novoFuncionario.getEmail());
+		funcionario.setSexo(novoFuncionario.getSexo());
+		funcionario.setRua(novoFuncionario.getRua());
+		funcionario.setBairro(novoFuncionario.getBairro());
+		funcionario.setCidade(novoFuncionario.getCidade());
+		funcionario.setLoja(novoFuncionario.getLoja());
 
-        funcionario.setNome(novoFuncionario.getNome());
-        funcionario.setCpf(novoFuncionario.getCpf());
-        funcionario.setCargo(novoFuncionario.getCargo());
-        funcionario.setSenha(novoFuncionario.getSenha());
-        funcionario.setTelefone(novoFuncionario.getTelefone());
-        funcionario.setEmail(novoFuncionario.getEmail());
-        funcionario.setSexo(novoFuncionario.getSexo());
-        funcionario.setRua(novoFuncionario.getRua());
-        funcionario.setBairro(novoFuncionario.getBairro());
-        funcionario.setCidade(novoFuncionario.getCidade());
-        funcionario.setLoja(novoFuncionario.getLoja());
+		return funcionarioRepository.save(funcionario);
+	}
 
-        return funcionarioRepository.save(funcionario);
-    }
-
-
-    public void deletarFuncionario(Integer id) {
-        if (!funcionarioRepository.existsById(id)) {
-            throw new RuntimeException("Funcionário não encontrado: " + id);
-        }
-        funcionarioRepository.deleteById(id);
-    }
+	public void deletarFuncionario(Integer id) {
+		if (!funcionarioRepository.existsById(id)) {
+			throw new RuntimeException("Funcionário não encontrado: " + id);
+		}
+		funcionarioRepository.deleteById(id);
+	}
 }

@@ -12,46 +12,46 @@ import br.edu.unoesc.monamu.repository.DescontoRepository;
 @Service
 public class DescontoService {
 
-    private final DescontoRepository descontoRepository;
+	private final DescontoRepository descontoRepository;
 
-    public DescontoService(DescontoRepository descontoRepository) {
-        this.descontoRepository = descontoRepository;
-    }
+	public DescontoService(DescontoRepository descontoRepository) {
+		this.descontoRepository = descontoRepository;
+	}
 
-    public List<Desconto> listarTodos() {
-        return descontoRepository.findAll();
-    }
+	public List<Desconto> listarTodos() {
+		return descontoRepository.findAll();
+	}
 
-    public Desconto buscarPorId(Integer id) {
-        Optional<Desconto> desconto = descontoRepository.findById(id);
+	public Desconto buscarPorId(Integer id) {
+		Optional<Desconto> desconto = descontoRepository.findById(id);
 
-        if (desconto.isPresent()) {
-            return desconto.get();
-        } else {
-            throw new RuntimeException("Desconto não encontrado: " + id);
-        }
-    }
+		if (desconto.isPresent()) {
+			return desconto.get();
+		} else {
+			throw new RuntimeException("Desconto não encontrado: " + id);
+		}
+	}
 
-    public Desconto criarDesconto(Desconto desconto) {
-        desconto.setDataCadastro(LocalDateTime.now());
-        return descontoRepository.save(desconto);
-    }
+	public Desconto criarDesconto(Desconto desconto) {
+		desconto.setDataCadastro(LocalDateTime.now());
+		return descontoRepository.save(desconto);
+	}
 
-    public Desconto atualizarDesconto(Integer id, Desconto novo) {
-        Desconto desconto = buscarPorId(id);
+	public Desconto atualizarDesconto(Integer id, Desconto novo) {
+		Desconto desconto = buscarPorId(id);
 
-        desconto.setNome(novo.getNome());
-        desconto.setValor(novo.getValor());
-        desconto.setDataValidade(novo.getDataValidade());
-        desconto.setVenda(novo.getVenda());
+		desconto.setNome(novo.getNome());
+		desconto.setValor(novo.getValor());
+		desconto.setDataValidade(novo.getDataValidade());
+		desconto.setVenda(novo.getVenda());
 
-        return descontoRepository.save(desconto);
-    }
+		return descontoRepository.save(desconto);
+	}
 
-    public void deletarDesconto(Integer id) {
-        if (!descontoRepository.existsById(id)) {
-            throw new RuntimeException("Desconto não encontrado: " + id);
-        }
-        descontoRepository.deleteById(id);
-    }
+	public void deletarDesconto(Integer id) {
+		if (!descontoRepository.existsById(id)) {
+			throw new RuntimeException("Desconto não encontrado: " + id);
+		}
+		descontoRepository.deleteById(id);
+	}
 }

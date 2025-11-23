@@ -20,40 +20,40 @@ import br.edu.unoesc.monamu.service.FuncionarioService;
 @RequestMapping("/api/funcionarios")
 public class FuncionarioController {
 
-    private final FuncionarioService funcionarioService;
+	private final FuncionarioService funcionarioService;
 
-    public FuncionarioController(FuncionarioService funcionarioService) {
-        this.funcionarioService = funcionarioService;
-    }
+	public FuncionarioController(FuncionarioService funcionarioService) {
+		this.funcionarioService = funcionarioService;
+	}
 
-    @GetMapping
-    public List<Funcionario> listarTodos() {
-        return funcionarioService.listarTodos();
-    }
+	@GetMapping
+	public List<Funcionario> listarTodos() {
+		return funcionarioService.listarTodos();
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Funcionario> buscarPorId(@PathVariable Integer id) {
-        try {
-            return ResponseEntity.ok(funcionarioService.buscarPorId(id));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<Funcionario> buscarPorId(@PathVariable Integer id) {
+		try {
+			return ResponseEntity.ok(funcionarioService.buscarPorId(id));
+		} catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
-    @PostMapping
-    public ResponseEntity<Funcionario> criar(@RequestBody Funcionario funcionario) {
-        Funcionario criado = funcionarioService.criarFuncionario(funcionario);
-        return ResponseEntity.status(HttpStatus.CREATED).body(criado);
-    }
+	@PostMapping
+	public ResponseEntity<Funcionario> criar(@RequestBody Funcionario funcionario) {
+		Funcionario criado = funcionarioService.criarFuncionario(funcionario);
+		return ResponseEntity.status(HttpStatus.CREATED).body(criado);
+	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Funcionario> atualizar(@PathVariable Integer id, @RequestBody Funcionario funcionario) {
-        return ResponseEntity.ok(funcionarioService.atualizarFuncionario(id, funcionario));
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<Funcionario> atualizar(@PathVariable Integer id, @RequestBody Funcionario funcionario) {
+		return ResponseEntity.ok(funcionarioService.atualizarFuncionario(id, funcionario));
+	}
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
-        funcionarioService.deletarFuncionario(id);
-        return ResponseEntity.noContent().build();
-    }
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deletar(@PathVariable Integer id) {
+		funcionarioService.deletarFuncionario(id);
+		return ResponseEntity.noContent().build();
+	}
 }

@@ -1,6 +1,7 @@
 package br.edu.unoesc.monamu.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,34 +19,40 @@ import br.edu.unoesc.monamu.service.ClienteService;
 @RequestMapping("/api/clientes")
 public class ClienteController {
 
-    private final ClienteService clienteService;
+	private final ClienteService clienteService;
 
-    public ClienteController(ClienteService clienteService) {
-        this.clienteService = clienteService;
-    }
+	public ClienteController(ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
 
-    @GetMapping
-    public List<Cliente> listarTodos() {
-        return clienteService.listarTodos();
-    }
+	@GetMapping
+	public List<Cliente> listarTodos() {
+		return clienteService.listarTodos();
+	}
 
-    @GetMapping("/{id}")
-    public Cliente buscarPorId(@PathVariable Integer id) {
-        return clienteService.buscarPorId(id);
-    }
+	@GetMapping("/{id}")
+	public Cliente buscarPorId(@PathVariable Integer id) {
+		return clienteService.buscarPorId(id);
+	}
 
-    @PostMapping
-    public Cliente criar(@RequestBody Cliente cliente) {
-        return clienteService.criarCliente(cliente);
-    }
+	@PostMapping
+	public Cliente criar(@RequestBody Cliente cliente) {
+		return clienteService.criarCliente(cliente);
+	}
 
-    @PutMapping("/{id}")
-    public Cliente atualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
-        return clienteService.atualizarCliente(id, cliente);
-    }
+	@PutMapping("/{id}")
+	public Cliente atualizar(@PathVariable Integer id, @RequestBody Cliente cliente) {
+		return clienteService.atualizarCliente(id, cliente);
+	}
 
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Integer id) {
-        clienteService.deletarCliente(id);
-    }
+	@DeleteMapping("/{id}")
+	public void deletar(@PathVariable Integer id) {
+		clienteService.deletarCliente(id);
+	}
+
+	@GetMapping("/total")
+	public Map<String, Long> getTotalClientes() {
+		long total = clienteService.contarClientes();
+		return Map.of("totalClientes", total);
+	}
 }

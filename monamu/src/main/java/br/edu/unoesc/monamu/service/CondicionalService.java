@@ -1,6 +1,8 @@
 package br.edu.unoesc.monamu.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -152,4 +154,15 @@ public class CondicionalService {
 	public void deletarCondicional(Integer id) {
 		condicionalRepository.deleteById(id);
 	}
+
+	public long contarCondicionaisAtivas() {
+		return condicionalRepository.countByDevolvidoFalse();
+	}
+
+	public List<Condicional> listarCondicionaisVencendoHoje() {
+		LocalDate hoje = LocalDate.now();
+		return condicionalRepository.findByDataDevolucaoBetweenAndDevolvidoFalse(hoje.atStartOfDay(),
+				hoje.atTime(LocalTime.MAX));
+	}
+
 }

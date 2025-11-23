@@ -99,10 +99,11 @@ public class VendaService {
 
 		return vendaRepository.save(venda);
 	}
-	
-	//Procedure que lista todas as vendas que utilizaram cupons de desconto e os valores finais com os descontos.
-	 public BigDecimal calcularDesconto(BigDecimal total, BigDecimal desconto) {
-	        return vendaRepository.aplicarDesconto(total, desconto);
-	    }
+
+	// Procedure que lista todas as vendas que utilizaram cupons de desconto e os
+	// valores finais com os descontos.
+	public BigDecimal calcularDesconto(BigDecimal total, BigDecimal desconto) {
+		return vendaRepository.aplicarDesconto(total, desconto);
+	}
 
 }

@@ -20,40 +20,37 @@ import br.edu.unoesc.monamu.service.VendaService;
 @RequestMapping("/api/vendas")
 public class VendaController {
 
-    private final VendaService vendaService;
+	private final VendaService vendaService;
 
-    public VendaController(VendaService vendaService) {
-        this.vendaService = vendaService;
-    }
+	public VendaController(VendaService vendaService) {
+		this.vendaService = vendaService;
+	}
 
-    @GetMapping
-    public List<Venda> listarTodos() {
-        return vendaService.listarTodos();
-    }
+	@GetMapping
+	public List<Venda> listarTodos() {
+		return vendaService.listarTodos();
+	}
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Venda> buscarPorId(@PathVariable Integer id) {
-        try {
-            return ResponseEntity.ok(vendaService.buscarPorId(id));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
+	@GetMapping("/{id}")
+	public ResponseEntity<Venda> buscarPorId(@PathVariable Integer id) {
+		try {
+			return ResponseEntity.ok(vendaService.buscarPorId(id));
+		} catch (RuntimeException e) {
+			return ResponseEntity.notFound().build();
+		}
+	}
 
-    @PostMapping
-    public ResponseEntity<Venda> criar(@RequestBody Venda venda) {
-        Venda criada = vendaService.criarVenda(venda);
-        return ResponseEntity.status(HttpStatus.CREATED).body(criada);
-    }
-    
-    
-    //Procedure das vendas com descontos
-    @GetMapping("/desconto")
-    public BigDecimal aplicarDesconto(
-            @RequestParam BigDecimal total,
-            @RequestParam BigDecimal desconto) {
+	@PostMapping
+	public ResponseEntity<Venda> criar(@RequestBody Venda venda) {
+		Venda criada = vendaService.criarVenda(venda);
+		return ResponseEntity.status(HttpStatus.CREATED).body(criada);
+	}
 
-        return vendaService.calcularDesconto(total, desconto);
-    }
-    
+	// Procedure das vendas com descontos
+	@GetMapping("/desconto")
+	public BigDecimal aplicarDesconto(@RequestParam BigDecimal total, @RequestParam BigDecimal desconto) {
+
+		return vendaService.calcularDesconto(total, desconto);
+	}
+
 }

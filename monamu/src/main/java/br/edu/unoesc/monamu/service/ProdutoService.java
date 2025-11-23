@@ -54,11 +54,23 @@ public class ProdutoService {
 	}
 
 	public List<Produto> listarApenasComEstoque() {
-	    return produtoRepository.findByQuantidadeEstoqueGreaterThan(0);
+		return produtoRepository.findByQuantidadeEstoqueGreaterThan(0);
 	}
 
 	public void deletarProduto(Integer id) {
 		Produto existente = buscarPorId(id);
 		produtoRepository.delete(existente);
+	}
+
+	public long contarProdutos() {
+		return produtoRepository.count();
+	}
+
+	public long contarProdutosComEstoque() {
+		return produtoRepository.countByQuantidadeEstoqueGreaterThan(0);
+	}
+
+	public List<Produto> listarEstoqueBaixo(int limite) {
+		return produtoRepository.findByQuantidadeEstoqueLessThanEqual(limite);
 	}
 }
