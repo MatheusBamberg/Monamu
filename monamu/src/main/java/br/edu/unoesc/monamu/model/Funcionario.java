@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -38,6 +39,11 @@ public class Funcionario extends Pessoa {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "codloj", nullable = false)
     private Loja loja;
+
+    //Pro login
+    @OneToOne(mappedBy = "funcionario")
+    private Usuario usuario;
+
 
     public Funcionario() {
     	
