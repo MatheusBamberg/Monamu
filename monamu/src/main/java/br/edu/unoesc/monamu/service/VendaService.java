@@ -32,6 +32,7 @@ public class VendaService {
 
 	/**
 	 * Lista todas as vendas.
+	 * 
 	 * @return Uma lista de todas as vendas.
 	 */
 	public List<Venda> listarTodos() {
@@ -40,6 +41,7 @@ public class VendaService {
 
 	/**
 	 * Busca uma venda pelo seu ID.
+	 * 
 	 * @param id O ID da venda a ser buscada.
 	 * @return A venda encontrada.
 	 * @throws RuntimeException Se a venda não for encontrada.
@@ -54,11 +56,13 @@ public class VendaService {
 	}
 
 	/**
-	 * Cria uma nova venda, processa os itens de venda (calcula valores, atualiza estoque),
-	 * aplica o desconto (se houver) e calcula o valor total.
+	 * Cria uma nova venda, processa os itens de venda (calcula valores, atualiza
+	 * estoque), aplica o desconto (se houver) e calcula o valor total.
+	 * 
 	 * @param venda A venda a ser criada.
 	 * @return A venda salva.
-	 * @throws RuntimeException Se um produto ou desconto não for encontrado, ou se o estoque for insuficiente.
+	 * @throws RuntimeException Se um produto ou desconto não for encontrado, ou se
+	 *                          o estoque for insuficiente.
 	 */
 	public Venda criarVenda(Venda venda) {
 		List<ItemVenda> itensRecebidos = new ArrayList<>(venda.getItens());
@@ -121,9 +125,11 @@ public class VendaService {
 	// valores finais com os descontos.
 	/**
 	 * Calcula o valor total após a aplicação de um desconto percentual.
-	 * @param total O valor total original.
+	 * 
+	 * @param total    O valor total original.
 	 * @param desconto O percentual de desconto a ser aplicado.
-	 * @return O valor final com o desconto aplicado (chama uma procedure do repositório).
+	 * @return O valor final com o desconto aplicado (chama uma procedure do
+	 *         repositório).
 	 */
 	public BigDecimal calcularDesconto(BigDecimal total, BigDecimal desconto) {
 		return vendaRepository.aplicarDesconto(total, desconto);

@@ -19,6 +19,7 @@ public class LojaService {
 
 	/**
 	 * Lista todas as lojas.
+	 * 
 	 * @return Uma lista de todas as lojas.
 	 */
 	public List<Loja> listarTodos() {
@@ -27,6 +28,7 @@ public class LojaService {
 
 	/**
 	 * Busca uma loja pelo seu ID.
+	 * 
 	 * @param id O ID da loja a ser buscada.
 	 * @return A loja encontrada.
 	 * @throws RuntimeException Se a loja não for encontrada.
@@ -43,6 +45,7 @@ public class LojaService {
 
 	/**
 	 * Cria uma nova loja.
+	 * 
 	 * @param loja A loja a ser criada.
 	 * @return A loja salva.
 	 */
@@ -52,7 +55,8 @@ public class LojaService {
 
 	/**
 	 * Atualiza uma loja existente com novos dados.
-	 * @param id O ID da loja a ser atualizada.
+	 * 
+	 * @param id       O ID da loja a ser atualizada.
 	 * @param novaLoja O objeto loja com os novos dados.
 	 * @return A loja atualizada.
 	 * @throws RuntimeException Se a loja não for encontrada.
@@ -71,6 +75,7 @@ public class LojaService {
 
 	/**
 	 * Deleta uma loja pelo seu ID.
+	 * 
 	 * @param id O ID da loja a ser deletada.
 	 * @throws RuntimeException Se a loja não for encontrada.
 	 */

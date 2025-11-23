@@ -29,6 +29,7 @@ public class ItemVendaService {
 
 	/**
 	 * Lista todos os itens de venda.
+	 * 
 	 * @return Uma lista de todos os itens de venda.
 	 */
 	public List<ItemVenda> listarTodos() {
@@ -37,6 +38,7 @@ public class ItemVendaService {
 
 	/**
 	 * Busca um item de venda pelo seu ID.
+	 * 
 	 * @param id O ID do item de venda a ser buscado.
 	 * @return O item de venda encontrado.
 	 * @throws RuntimeException Se o ItemVenda não for encontrado.
@@ -53,6 +55,7 @@ public class ItemVendaService {
 	/**
 	 * Cria um novo item de venda, valida a existência da venda e do produto,
 	 * calcula o valor total e o salva.
+	 * 
 	 * @param item O item de venda a ser criado.
 	 * @return O item de venda salvo.
 	 * @throws RuntimeException Se a venda ou o produto não forem encontrados.
@@ -87,7 +90,8 @@ public class ItemVendaService {
 
 	/**
 	 * Atualiza um item de venda existente, recalcula seu valor total e salva.
-	 * @param id O ID do item de venda a ser atualizado.
+	 * 
+	 * @param id   O ID do item de venda a ser atualizado.
 	 * @param novo O objeto item de venda com os novos dados.
 	 * @return O item de venda atualizado.
 	 * @throws RuntimeException Se o ItemVenda ou o Produto não forem encontrados.
@@ -119,6 +123,7 @@ public class ItemVendaService {
 
 	/**
 	 * Deleta um item de venda pelo seu ID.
+	 * 
 	 * @param id O ID do item de venda a ser deletado.
 	 * @throws RuntimeException Se o ItemVenda não for encontrado.
 	 */

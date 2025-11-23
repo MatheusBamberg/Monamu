@@ -19,6 +19,7 @@ public class ItemCondicionalService {
 
 	/**
 	 * Lista todos os itens de condicional.
+	 * 
 	 * @return Uma lista de todos os itens de condicional.
 	 */
 	public List<ItemCondicional> listarTodos() {
@@ -27,6 +28,7 @@ public class ItemCondicionalService {
 
 	/**
 	 * Busca um item de condicional pelo seu ID.
+	 * 
 	 * @param id O ID do item de condicional a ser buscado.
 	 * @return O item de condicional encontrado.
 	 * @throws RuntimeException Se o item condicional não for encontrado.
@@ -43,6 +45,7 @@ public class ItemCondicionalService {
 
 	/**
 	 * Cria um novo item de condicional.
+	 * 
 	 * @param item O item de condicional a ser criado.
 	 * @return O item de condicional salvo.
 	 */
@@ -52,7 +55,8 @@ public class ItemCondicionalService {
 
 	/**
 	 * Atualiza um item de condicional existente com novos dados.
-	 * @param id O ID do item de condicional a ser atualizado.
+	 * 
+	 * @param id       O ID do item de condicional a ser atualizado.
 	 * @param novoItem O objeto item de condicional com os novos dados.
 	 * @return O item de condicional atualizado.
 	 * @throws RuntimeException Se o item condicional não for encontrado.
@@ -69,6 +73,7 @@ public class ItemCondicionalService {
 
 	/**
 	 * Deleta um item de condicional pelo seu ID.
+	 * 
 	 * @param id O ID do item de condicional a ser deletado.
 	 * @throws RuntimeException Se o item condicional não for encontrado.
 	 */
