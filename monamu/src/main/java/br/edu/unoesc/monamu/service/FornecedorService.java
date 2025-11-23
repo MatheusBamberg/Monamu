@@ -17,10 +17,20 @@ public class FornecedorService {
 		this.fornecedorRepository = fornecedorRepository;
 	}
 
+	/**
+	 * Lista todos os fornecedores.
+	 * @return Uma lista de todos os fornecedores.
+	 */
 	public List<Fornecedor> listarTodos() {
 		return fornecedorRepository.findAll();
 	}
 
+	/**
+	 * Busca um fornecedor pelo seu ID.
+	 * @param id O ID do fornecedor a ser buscado.
+	 * @return O fornecedor encontrado.
+	 * @throws RuntimeException Se o fornecedor não for encontrado.
+	 */
 	public Fornecedor buscarPorId(Integer id) {
 		Optional<Fornecedor> fornecedor = fornecedorRepository.findById(id);
 
@@ -31,10 +41,22 @@ public class FornecedorService {
 		}
 	}
 
+	/**
+	 * Cria um novo fornecedor.
+	 * @param fornecedor O fornecedor a ser criado.
+	 * @return O fornecedor salvo.
+	 */
 	public Fornecedor criarFornecedor(Fornecedor fornecedor) {
 		return fornecedorRepository.save(fornecedor);
 	}
 
+	/**
+	 * Atualiza um fornecedor existente com novos dados.
+	 * @param id O ID do fornecedor a ser atualizado.
+	 * @param fornecedorAtualizado O objeto fornecedor com os novos dados.
+	 * @return O fornecedor atualizado.
+	 * @throws RuntimeException Se o fornecedor não for encontrado.
+	 */
 	public Fornecedor atualizarFornecedor(Integer id, Fornecedor fornecedorAtualizado) {
 		Fornecedor fornecedorExistente = buscarPorId(id);
 
@@ -52,6 +74,11 @@ public class FornecedorService {
 		return fornecedorRepository.save(fornecedorExistente);
 	}
 
+	/**
+	 * Deleta um fornecedor pelo seu ID.
+	 * @param id O ID do fornecedor a ser deletado.
+	 * @throws RuntimeException Se o fornecedor não for encontrado.
+	 */
 	public void deletarFornecedor(Integer id) {
 		Fornecedor fornecedor = buscarPorId(id);
 		fornecedorRepository.delete(fornecedor);

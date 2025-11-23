@@ -25,10 +25,20 @@ public class CondicionalService {
 		this.produtoRepository = produtoRepository;
 	}
 
+	/**
+	 * Lista todas as condicionais.
+	 * @return Uma lista de todas as condicionais.
+	 */
 	public List<Condicional> listarTodos() {
 		return condicionalRepository.findAll();
 	}
 
+	/**
+	 * Busca uma condicional pelo seu ID.
+	 * @param id O ID da condicional a ser buscada.
+	 * @return A condicional encontrada.
+	 * @throws RuntimeException Se a condicional não for encontrada.
+	 */
 	public Condicional buscarPorId(Integer id) {
 		Optional<Condicional> condicional = condicionalRepository.findById(id);
 
@@ -39,6 +49,11 @@ public class CondicionalService {
 		}
 	}
 
+	/**
+	 * Valida se a data de devolução é posterior à data de retirada.
+	 * @param condicional A condicional a ser validada.
+	 * @throws RuntimeException Se a data de devolução não for depois da data de retirada.
+	 */
 	private void validarDatas(Condicional condicional) {
 		if (condicional.getDataRetirada() == null || condicional.getDataDevolucao() == null) {
 			return;
@@ -49,6 +64,13 @@ public class CondicionalService {
 		}
 	}
 
+	/**
+	 * Cria uma nova condicional, valida as datas, define como não devolvida,
+	 * subtrai os itens do estoque e salva a condicional.
+	 * @param condicional A condicional a ser criada.
+	 * @return A condicional salva.
+	 * @throws RuntimeException Se um produto não for encontrado ou se o estoque for insuficiente.
+	 */
 	public Condicional criarCondicional(Condicional condicional) {
 
 		validarDatas(condicional);
@@ -75,6 +97,14 @@ public class CondicionalService {
 		return condicionalRepository.save(condicional);
 	}
 
+	/**
+	 * Atualiza uma condicional existente, devolvendo os itens antigos ao estoque,
+	 * validando as datas e subtraindo os novos itens do estoque.
+	 * @param id O ID da condicional a ser atualizada.
+	 * @param novaCondicional O objeto condicional com os novos dados.
+	 * @return A condicional atualizada.
+	 * @throws RuntimeException Se a condicional ou um produto não for encontrado, se as datas forem inválidas, ou se o estoque for insuficiente.
+	 */
 	public Condicional atualizarCondicional(Integer id, Condicional novaCondicional) {
 
 		Condicional antiga = buscarPorId(id);
@@ -124,6 +154,13 @@ public class CondicionalService {
 		return condicionalRepository.save(antiga);
 	}
 
+	/**
+	 * Marca uma condicional como devolvida, atualiza a data de devolução para o momento atual
+	 * e adiciona os itens de volta ao estoque.
+	 * @param id O ID da condicional a ser marcada como devolvida.
+	 * @return A condicional atualizada.
+	 * @throws RuntimeException Se a condicional não for encontrada ou já estiver devolvida.
+	 */
 	public Condicional marcarComoDevolvido(Integer id) {
 
 		Condicional condicional = buscarPorId(id);
@@ -151,18 +188,29 @@ public class CondicionalService {
 		return condicionalRepository.save(condicional);
 	}
 
+	/**
+	 * Deleta uma condicional pelo seu ID.
+	 * @param id O ID da condicional a ser deletada.
+	 */
 	public void deletarCondicional(Integer id) {
 		condicionalRepository.deleteById(id);
 	}
 
+	/**
+	 * Conta o número de condicionais que não foram devolvidas (ativas).
+	 * @return O número de condicionais ativas.
+	 */
 	public long contarCondicionaisAtivas() {
 		return condicionalRepository.countByDevolvidoFalse();
 	}
 
+	/**
+	 * Lista as condicionais ativas (não devolvidas) que vencem na data de hoje.
+	 * @return Uma lista de condicionais vencendo hoje.
+	 */
 	public List<Condicional> listarCondicionaisVencendoHoje() {
 		LocalDate hoje = LocalDate.now();
 		return condicionalRepository.findByDataDevolucaoBetweenAndDevolvidoFalse(hoje.atStartOfDay(),
 				hoje.atTime(LocalTime.MAX));
 	}
-
 }

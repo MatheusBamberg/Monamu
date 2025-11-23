@@ -17,19 +17,40 @@ public class ClienteService {
 		this.clienteRepository = clienteRepository;
 	}
 
+	/**
+	 * Lista todos os clientes.
+	 * @return Uma lista de todos os clientes.
+	 */
 	public List<Cliente> listarTodos() {
 		return clienteRepository.findAll();
 	}
 
+	/**
+	 * Busca um cliente pelo seu ID.
+	 * @param id O ID do cliente a ser buscado.
+	 * @return O cliente encontrado.
+	 * @throws RuntimeException Se o cliente não for encontrado.
+	 */
 	public Cliente buscarPorId(Integer id) {
 		return clienteRepository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado: " + id));
 	}
 
+	/**
+	 * Cria um novo cliente, definindo a data de cadastro para o momento atual.
+	 * @param cliente O cliente a ser criado.
+	 * @return O cliente salvo.
+	 */
 	public Cliente criarCliente(Cliente cliente) {
 		cliente.setDataCadastro(LocalDateTime.now());
 		return clienteRepository.save(cliente);
 	}
 
+	/**
+	 * Atualiza um cliente existente com novos dados.
+	 * @param id O ID do cliente a ser atualizado.
+	 * @param novo O objeto cliente com os novos dados.
+	 * @return O cliente atualizado.
+	 */
 	public Cliente atualizarCliente(Integer id, Cliente novo) {
 		Cliente cliente = buscarPorId(id);
 
@@ -46,6 +67,11 @@ public class ClienteService {
 		return clienteRepository.save(cliente);
 	}
 
+	/**
+	 * Deleta um cliente pelo seu ID.
+	 * @param id O ID do cliente a ser deletado.
+	 * @throws RuntimeException Se o cliente não for encontrado.
+	 */
 	public void deletarCliente(Integer id) {
 		if (!clienteRepository.existsById(id)) {
 			throw new RuntimeException("Cliente não encontrado: " + id);
@@ -53,6 +79,10 @@ public class ClienteService {
 		clienteRepository.deleteById(id);
 	}
 
+	/**
+	 * Conta o número total de clientes.
+	 * @return O número total de clientes.
+	 */
 	public long contarClientes() {
 		return clienteRepository.count();
 	}
