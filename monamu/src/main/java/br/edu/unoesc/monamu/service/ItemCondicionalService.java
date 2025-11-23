@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import br.edu.unoesc.monamu.model.Desconto;
 import br.edu.unoesc.monamu.model.ItemCondicional;
 import br.edu.unoesc.monamu.repository.ItemCondicionalRepository;
 

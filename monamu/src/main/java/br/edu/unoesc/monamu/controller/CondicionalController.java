@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -58,4 +59,16 @@ public class CondicionalController {
 		condicionalService.deletarCondicional(id);
 		return ResponseEntity.noContent().build();
 	}
+	
+	 @PatchMapping("/{id}/devolver")
+	    public ResponseEntity<?> devolver(@PathVariable Integer id) {
+	        try {
+	            Condicional atualizado = condicionalService.marcarComoDevolvido(id);
+	            return ResponseEntity.ok(atualizado);
+	        } catch (RuntimeException e) {
+	            return ResponseEntity.badRequest().body(e.getMessage());
+	        } catch (Exception e) {
+	            return ResponseEntity.status(500).body("Erro ao marcar devolução: " + e.getMessage());
+	        }
+	    }
 }

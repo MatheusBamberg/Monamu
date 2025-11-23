@@ -1,5 +1,6 @@
 package br.edu.unoesc.monamu.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,23 +51,20 @@ public class CondicionalService {
 
 		validarDatas(condicional);
 
+		condicional.setDevolvido(false);
+
 		if (condicional.getItens() != null) {
 			for (ItemCondicional item : condicional.getItens()) {
 
-				Optional<Produto> optProduto = produtoRepository.findById(item.getProduto().getId());
+				Produto produto = produtoRepository.findById(item.getProduto().getId())
+						.orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-				if (!optProduto.isPresent()) {
-					throw new RuntimeException("Produto não encontrado");
+				if (produto.getQuantidadeEstoque() < item.getQuantidadeItem()) {
+					throw new RuntimeException("Estoque insuficiente para o produto: " + produto.getNome());
 				}
 
-				Produto produto = optProduto.get();
-
-				if (produto.getQuantidadeEstoque() == null
-						|| produto.getQuantidadeEstoque() < item.getQuantidadeItem()) {
-
-					throw new RuntimeException("O produto \"" + produto.getNome()
-							+ "\" não possui estoque suficiente. Estoque atual: " + produto.getQuantidadeEstoque());
-				}
+				produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - item.getQuantidadeItem());
+				produtoRepository.save(produto);
 
 				item.setCondicional(condicional);
 			}
@@ -76,30 +74,82 @@ public class CondicionalService {
 	}
 
 	public Condicional atualizarCondicional(Integer id, Condicional novaCondicional) {
-		Condicional condicionalExistente = buscarPorId(id);
+
+		Condicional antiga = buscarPorId(id);
 		validarDatas(novaCondicional);
 
-		condicionalExistente.setNomeItem(novaCondicional.getNomeItem());
-		condicionalExistente.setDataRetirada(novaCondicional.getDataRetirada());
-		condicionalExistente.setDataDevolucao(novaCondicional.getDataDevolucao());
-		condicionalExistente.setObservacao(novaCondicional.getObservacao());
-		condicionalExistente.setCliente(novaCondicional.getCliente());
-		condicionalExistente.getItens().clear();
+		// Devolver ao estoque atual
+		if (antiga.getItens() != null) {
+			for (ItemCondicional itemAntigo : antiga.getItens()) {
 
-		if (novaCondicional.getItens() != null) {
-			for (ItemCondicional item : novaCondicional.getItens()) {
-				item.setCondicional(condicionalExistente);
-				condicionalExistente.getItens().add(item);
+				Produto produto = produtoRepository.findById(itemAntigo.getProduto().getId()).orElse(null);
+
+				if (produto != null) {
+					produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + itemAntigo.getQuantidadeItem());
+					produtoRepository.save(produto);
+				}
 			}
 		}
 
-		return condicionalRepository.save(condicionalExistente);
+		antiga.getItens().clear();
+
+		// Subtrair para os novos itens adicionados
+		if (novaCondicional.getItens() != null) {
+			for (ItemCondicional itemNovo : novaCondicional.getItens()) {
+
+				Produto produto = produtoRepository.findById(itemNovo.getProduto().getId())
+						.orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+				if (produto.getQuantidadeEstoque() < itemNovo.getQuantidadeItem()) {
+					throw new RuntimeException("Estoque insuficiente para o produto: " + produto.getNome());
+				}
+
+				// Subtrair do estoque
+				produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() - itemNovo.getQuantidadeItem());
+				produtoRepository.save(produto);
+
+				itemNovo.setCondicional(antiga);
+				antiga.getItens().add(itemNovo);
+			}
+		}
+
+		antiga.setNomeItem(novaCondicional.getNomeItem());
+		antiga.setDataRetirada(novaCondicional.getDataRetirada());
+		antiga.setDataDevolucao(novaCondicional.getDataDevolucao());
+		antiga.setObservacao(novaCondicional.getObservacao());
+		antiga.setCliente(novaCondicional.getCliente());
+
+		return condicionalRepository.save(antiga);
+	}
+
+	public Condicional marcarComoDevolvido(Integer id) {
+
+		Condicional condicional = buscarPorId(id);
+
+		if (condicional.getDevolvido() != null && condicional.getDevolvido()) {
+			throw new RuntimeException("Condicional já devolvida.");
+		}
+
+		condicional.setDevolvido(true);
+		condicional.setDataDevolucao(LocalDateTime.now());
+
+		// Somar estoque de volta
+		if (condicional.getItens() != null) {
+			for (ItemCondicional item : condicional.getItens()) {
+
+				Produto produto = produtoRepository.findById(item.getProduto().getId()).orElse(null);
+
+				if (produto != null) {
+					produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + item.getQuantidadeItem());
+					produtoRepository.save(produto);
+				}
+			}
+		}
+
+		return condicionalRepository.save(condicional);
 	}
 
 	public void deletarCondicional(Integer id) {
-		if (!condicionalRepository.existsById(id)) {
-			throw new RuntimeException("Condicional não encontrada: " + id);
-		}
 		condicionalRepository.deleteById(id);
 	}
 }

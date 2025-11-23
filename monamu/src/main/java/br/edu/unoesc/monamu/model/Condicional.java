@@ -45,6 +45,10 @@ public class Condicional {
 	@Column(name = "obsitncon", length = 255)
 	private String observacao;
 	
+	/** Se o condicional foi devolvido ou não */
+    @Column(name = "devitncon", nullable = false)
+    private Boolean devolvido = false;
+    
 	/** Cliente que retirou a condicional. */
 	@OneToMany(mappedBy = "condicional", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
@@ -58,12 +62,14 @@ public class Condicional {
 	}
 
 	public Condicional(Integer id, String nomeItem, LocalDateTime dataRetirada, LocalDateTime dataDevolucao,
-			String observacao, Cliente cliente) {
+			String observacao, Boolean devolvido, List<ItemCondicional> itens, Cliente cliente) {
 		this.id = id;
 		this.nomeItem = nomeItem;
 		this.dataRetirada = dataRetirada;
 		this.dataDevolucao = dataDevolucao;
 		this.observacao = observacao;
+		this.devolvido = devolvido;
+		this.itens = itens;
 		this.cliente = cliente;
 	}
 
@@ -124,5 +130,12 @@ public class Condicional {
 		this.itens = itens;
 	}
 
+	public Boolean getDevolvido() {
+		return devolvido;
+	}
+
+	public void setDevolvido(Boolean devolvido) {
+		this.devolvido = devolvido;
+	}
 	
 }
