@@ -20,6 +20,7 @@ public class DescontoService {
 
 	/**
 	 * Lista todos os descontos.
+	 * 
 	 * @return Uma lista de todos os descontos.
 	 */
 	public List<Desconto> listarTodos() {
@@ -28,6 +29,7 @@ public class DescontoService {
 
 	/**
 	 * Busca um desconto pelo seu ID.
+	 * 
 	 * @param id O ID do desconto a ser buscado.
 	 * @return O desconto encontrado.
 	 * @throws RuntimeException Se o desconto não for encontrado.
@@ -44,6 +46,7 @@ public class DescontoService {
 
 	/**
 	 * Cria um novo desconto, definindo a data de cadastro para o momento atual.
+	 * 
 	 * @param desconto O desconto a ser criado.
 	 * @return O desconto salvo.
 	 */
@@ -54,7 +57,8 @@ public class DescontoService {
 
 	/**
 	 * Atualiza um desconto existente com novos dados.
-	 * @param id O ID do desconto a ser atualizado.
+	 * 
+	 * @param id   O ID do desconto a ser atualizado.
 	 * @param novo O objeto desconto com os novos dados.
 	 * @return O desconto atualizado.
 	 * @throws RuntimeException Se o desconto não for encontrado.
@@ -72,6 +76,7 @@ public class DescontoService {
 
 	/**
 	 * Deleta um desconto pelo seu ID.
+	 * 
 	 * @param id O ID do desconto a ser deletado.
 	 * @throws RuntimeException Se o desconto não for encontrado.
 	 */
