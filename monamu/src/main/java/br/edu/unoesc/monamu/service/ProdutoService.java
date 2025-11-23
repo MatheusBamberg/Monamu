@@ -18,6 +18,7 @@ public class ProdutoService {
 
 	/**
 	 * Lista todos os produtos.
+	 * 
 	 * @return Uma lista de todos os produtos.
 	 */
 	public List<Produto> listarTodos() {
@@ -26,6 +27,7 @@ public class ProdutoService {
 
 	/**
 	 * Busca um produto pelo seu ID.
+	 * 
 	 * @param id O ID do produto a ser buscado.
 	 * @return O produto encontrado.
 	 * @throws RuntimeException Se o produto não for encontrado.
@@ -42,6 +44,7 @@ public class ProdutoService {
 
 	/**
 	 * Cria um novo produto.
+	 * 
 	 * @param produto O produto a ser criado.
 	 * @return O produto salvo.
 	 */
@@ -51,7 +54,8 @@ public class ProdutoService {
 
 	/**
 	 * Atualiza um produto existente com novos dados.
-	 * @param id O ID do produto a ser atualizado.
+	 * 
+	 * @param id          O ID do produto a ser atualizado.
 	 * @param novaProduto O objeto produto com os novos dados.
 	 * @return O produto atualizado.
 	 * @throws RuntimeException Se o produto não for encontrado.
@@ -76,6 +80,7 @@ public class ProdutoService {
 
 	/**
 	 * Lista os produtos que possuem quantidade em estoque maior que zero.
+	 * 
 	 * @return Uma lista de produtos com estoque.
 	 */
 	public List<Produto> listarApenasComEstoque() {
@@ -84,6 +89,7 @@ public class ProdutoService {
 
 	/**
 	 * Deleta um produto pelo seu ID.
+	 * 
 	 * @param id O ID do produto a ser deletado.
 	 * @throws RuntimeException Se o produto não for encontrado.
 	 */
@@ -94,6 +100,7 @@ public class ProdutoService {
 
 	/**
 	 * Conta o número total de produtos.
+	 * 
 	 * @return O número total de produtos.
 	 */
 	public long contarProdutos() {
@@ -102,6 +109,7 @@ public class ProdutoService {
 
 	/**
 	 * Conta o número de produtos que possuem estoque maior que zero.
+	 * 
 	 * @return O número de produtos com estoque.
 	 */
 	public long contarProdutosComEstoque() {
@@ -110,10 +118,25 @@ public class ProdutoService {
 
 	/**
 	 * Lista os produtos com estoque igual ou menor que o limite fornecido.
+	 * 
 	 * @param limite O limite máximo de estoque para ser considerado baixo.
 	 * @return Uma lista de produtos com estoque baixo.
 	 */
 	public List<Produto> listarEstoqueBaixo(int limite) {
 		return produtoRepository.findByQuantidadeEstoqueLessThanEqual(limite);
 	}
+
+	/**
+	 * Busca produtos cujo nome, tipo, cor ou tamanho contenha o termo informado.
+	 * 
+	 * @param termo O termo de busca que será comparado com nome, tipo, cor e
+	 *              tamanho do produto.
+	 * @return Uma lista de produtos que correspondem ao termo de busca.
+	 */
+	public List<Produto> buscarPorTermo(String termo) {
+		return produtoRepository
+				.findByNomeContainingIgnoreCaseOrTipoContainingIgnoreCaseOrCorContainingIgnoreCaseOrTamanhoContainingIgnoreCase(
+						termo, termo, termo, termo);
+	}
+
 }

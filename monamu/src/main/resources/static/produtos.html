@@ -162,11 +162,41 @@
 
     const modalProdutoEl = document.getElementById("modalProduto");
     const modalProduto = new bootstrap.Modal(modalProdutoEl);
+    const inputBuscar = document.getElementById("buscarProduto");
 
     function formatarDataHoraLocal(date) {
       const offset = date.getTimezoneOffset() * 60000;
       const localIsso = new Date(date.getTime() - offset).toISOString();
       return localIsso.slice(0, 16); // Formato YYYY-MM-DDThh:mm
+    }
+
+    function renderizarTabela(produtos) {
+      const tbody = document.querySelector("table tbody");
+      tbody.innerHTML = "";
+
+      produtos.forEach(p => {
+        const precoCustoFmt = (p.custo || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        const precoVendaFmt = (p.venda || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+
+        tbody.innerHTML += `
+        <tr>
+          <td>${p.nome}</td>
+          <td>${p.tamanho || 'N/A'}</td>
+          <td>${p.cor || 'N/A'}</td>
+          <td>${p.tipo || 'N/A'}</td>
+          <td>${precoCustoFmt}</td>
+          <td>${precoVendaFmt}</td>
+          <td>${p.quantidadeEstoque || 0}</td>
+          <td>
+            <button class="action edit" onclick="editarProduto(${p.id})">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="action delete" onclick="excluirProduto(${p.id})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>`;
+      });
     }
 
     function carregarFornecedores() {
@@ -205,36 +235,20 @@
 
     function carregarProdutos() {
       axios.get(apiProdutos)
-        .then(res => {
-          const tbody = document.querySelector("table tbody");
-          tbody.innerHTML = "";
-
-          res.data.forEach(p => {
-            const precoCustoFmt = (p.custo || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            const precoVendaFmt = (p.venda || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-            tbody.innerHTML += `
-                        <tr>
-                            <td>${p.nome}</td>
-                            <td>${p.tamanho || 'N/A'}</td>
-                            <td>${p.cor || 'N/A'}</td>
-                            <td>${p.tipo || 'N/A'}</td>
-                            <td>${precoCustoFmt}</td>
-                            <td>${precoVendaFmt}</td>
-                            <td>${p.quantidadeEstoque || 0}</td>
-                            <td>
-                                <button class="action edit" onclick="editarProduto(${p.id})">
-                                    <i class="bi bi-pencil"></i>
-                                </button>
-                                <button class="action delete" onclick="excluirProduto(${p.id})">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </td>
-                        </tr>`;
-          });
-        })
+        .then(res => renderizarTabela(res.data))
         .catch(err => console.error("Erro ao carregar produtos:", err));
     }
+
+    inputBuscar.addEventListener("input", () => {
+      const termo = inputBuscar.value.trim();
+      if (termo === "") {
+        carregarProdutos();
+      } else {
+        axios.get(`${apiProdutos}/search?q=${encodeURIComponent(termo)}`)
+          .then(res => renderizarTabela(res.data))
+          .catch(err => console.error("Erro ao buscar produtos:", err));
+      }
+    });
 
     function abrirModalNovoProduto() {
       Promise.all([carregarFornecedores(), carregarLojas()]).then(() => {
@@ -256,31 +270,15 @@
 
       const id = document.getElementById("produtoId")?.value;
 
-      const precoCustoVal = document.getElementById("precoCustoProduto").value;
-      const precoVendaVal = document.getElementById("precoVendaProduto").value;
-      const estoqueVal = document.getElementById("estoqueProduto").value;
-      const dataCadastroVal = document.getElementById("dataCadastroProduto").value;
-
-      const custo = parseFloat(precoCustoVal || 0);
-      const venda = parseFloat(precoVendaVal || 0);
-      const estoque = parseInt(estoqueVal || 0);
-
-      if (isNaN(custo) || isNaN(venda) || isNaN(estoque)) {
-        alert("Erro: Verifique se Preço de Custo, Preço de Venda e Estoque são números válidos.");
-        return;
-      }
-
       const produto = {
         nome: document.getElementById("nomeProduto").value,
         tamanho: document.getElementById("tamanhoProduto").value,
         cor: document.getElementById("corProduto").value,
         tipo: document.getElementById("tipoProduto").value,
-
-        custo: custo,
-        venda: venda,
-        quantidadeEstoque: estoque,
-
-        dataCadastro: dataCadastroVal + ":00",
+        custo: parseFloat(document.getElementById("precoCustoProduto").value || 0),
+        venda: parseFloat(document.getElementById("precoVendaProduto").value || 0),
+        quantidadeEstoque: parseInt(document.getElementById("estoqueProduto").value || 0),
+        dataCadastro: document.getElementById("dataCadastroProduto").value + ":00",
         descricao: document.getElementById("descricaoProduto").value,
         ativo: document.getElementById("ativoProduto").checked,
         fornecedor: { id: parseInt(document.getElementById("fornecedorProduto").value) },
@@ -318,7 +316,6 @@
             document.getElementById("tamanhoProduto").value = p.tamanho;
             document.getElementById("corProduto").value = p.cor;
             document.getElementById("tipoProduto").value = p.tipo;
-
             document.getElementById("precoCustoProduto").value = p.custo;
             document.getElementById("precoVendaProduto").value = p.venda;
             document.getElementById("estoqueProduto").value = p.quantidadeEstoque;
@@ -339,27 +336,19 @@
             document.getElementById("modalProdutoLabel").textContent = "Editar Produto";
             modalProduto.show();
           })
-          .catch(err => {
-            const msg = err.response?.data?.erro || err.response?.data?.message || "Erro ao buscar produto";
-            alert(msg);
-          });
+          .catch(err => alert("Erro ao buscar produto"));
       });
     }
 
-    // -------------------- EXCLUIR PRODUTO --------------------
     function excluirProduto(id) {
       if (!confirm("Deseja realmente excluir este produto?")) return;
 
       axios.delete(`${apiProdutos}/${id}`)
         .then(() => carregarProdutos())
-        .catch(err => {
-          const msg = err.response?.data?.erro || err.response?.data?.message || "Erro ao excluir produto";
-          alert(msg);
-        });
+        .catch(err => alert("Erro ao excluir produto"));
     }
 
-    carregarFornecedores()
-      .then(() => carregarLojas())
+    Promise.all([carregarFornecedores(), carregarLojas()])
       .then(() => carregarProdutos());
   </script>
 

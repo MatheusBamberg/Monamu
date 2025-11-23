@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.unoesc.monamu.model.Produto;
@@ -69,6 +70,11 @@ public class ProdutoController {
 		List<Produto> estoqueBaixo = produtoService.listarEstoqueBaixo(5); // limite de baixo estoque = 5
 
 		return Map.of("totalEstoque", totalEstoque, "estoqueBaixo", estoqueBaixo);
+	}
+
+	@GetMapping("/search")
+	public List<Produto> buscar(@RequestParam("q") String termo) {
+		return produtoService.buscarPorTermo(termo);
 	}
 
 }

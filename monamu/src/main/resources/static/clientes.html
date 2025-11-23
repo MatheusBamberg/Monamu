@@ -37,7 +37,7 @@
                 <h2>Clientes Cadastrados</h2>
             </header>
             <div class="table-responsive">
-                <table class="table table-striped table-hover align-middle">
+                <table class="table table-sm align-middle">
                     <thead>
                         <tr>
                             <th>Nome</th>
@@ -71,7 +71,6 @@
                         <input type="hidden" id="clienteId">
 
                         <div class="row g-3">
-
                             <div class="col-md-6">
                                 <label class="form-label">Nome Completo</label>
                                 <input type="text" class="form-control" id="nome" required>
@@ -128,7 +127,6 @@
                                 <label class="form-label">Estado</label>
                                 <input type="text" class="form-control" id="estado" required>
                             </div>
-
                         </div>
 
                         <div class="modal-footer mt-4">
@@ -155,43 +153,65 @@
         const modalClienteEl = document.getElementById("modalCliente");
         const modalCliente = new bootstrap.Modal(modalClienteEl);
         const formCliente = document.getElementById("formCliente");
+        const tabelaClientes = document.getElementById("tabelaClientes");
+        const inputBusca = document.getElementById("buscarCliente");
 
         function formatarDataInput(date) {
             const pad = n => n.toString().padStart(2, "0");
             return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
         }
 
-        function carregarClientes() {
-            axios.get(api)
-                .then(res => res.data)
-                .then(clientes => {
-                    const tbody = document.getElementById("tabelaClientes");
-                    tbody.innerHTML = "";
+        function mostrarClientes(clientes) {
+            tabelaClientes.innerHTML = "";
+            if (clientes.length === 0) {
+                tabelaClientes.innerHTML = `<tr><td colspan="7" class="text-center p-4">Nenhum cliente encontrado.</td></tr>`;
+                return;
+            }
 
-                    clientes.forEach(c => {
-                        tbody.innerHTML += `
-                <tr>
-                    <td>${c.nome}</td>
-                    <td>${c.cpf}</td>
-                    <td>${c.telefone}</td>
-                    <td>${c.email}</td>
-                    <td>${c.cidade}</td>
-                    <td>${new Date(c.dataCadastro).toLocaleString("pt-BR")}</td>
-                    <td>
-                        <button class="action edit" onclick="editarCliente(${c.id})">
-                            <i class="bi bi-pencil"></i>
-                        </button>
-                        <button class="action delete" onclick="excluirCliente(${c.id})">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                </tr>`;
-                    });
-                })
-                .catch(err => alert("Erro ao carregar clientes"));
+            clientes.forEach(c => {
+                tabelaClientes.innerHTML += `
+            <tr>
+                <td>${c.nome}</td>
+                <td>${c.cpf}</td>
+                <td>${c.telefone}</td>
+                <td>${c.email}</td>
+                <td>${c.cidade}</td>
+                <td>${new Date(c.dataCadastro).toLocaleString("pt-BR")}</td>
+                <td>
+                    <button class="action edit" onclick="editarCliente(${c.id})">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="action delete" onclick="excluirCliente(${c.id})">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+            </tr>`;
+            });
         }
 
-        carregarClientes();
+        let debounceTimer;
+        function buscarClientes(termo = "") {
+            // Se 'termo' for vazio, a URL será "/api/clientes" (lista todos)
+            // Se houver 'termo', será "/api/clientes?search=termo" (busca)
+            const url = termo ? `${api}?search=${encodeURIComponent(termo)}` : api;
+
+            axios.get(url)
+                .then(res => mostrarClientes(res.data))
+                .catch(err => console.error("Erro ao buscar clientes:", err));
+        }
+
+        buscarClientes();
+        inputBusca.addEventListener("input", () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(() => {
+                const termo = inputBusca.value.trim();
+                buscarClientes(termo);
+            }, 300);
+        });
+
+        function carregarClientes() {
+            buscarClientes();
+        }
 
         function abrirModalNovo() {
             formCliente.reset();
@@ -201,7 +221,6 @@
             modalCliente.show();
         }
 
-        // salvar / atualizar
         formCliente.addEventListener("submit", (e) => {
             e.preventDefault();
 
@@ -222,11 +241,7 @@
             const metodo = id ? "put" : "post";
             const url = id ? `${api}/${id}` : api;
 
-            axios({
-                method: metodo,
-                url: url,
-                data: cliente
-            })
+            axios({ method: metodo, url: url, data: cliente })
                 .then(() => {
                     carregarClientes();
                     modalCliente.hide();
