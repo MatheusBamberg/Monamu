@@ -82,7 +82,6 @@ public class FuncionarioService {
 		funcionario.setNome(novoFuncionario.getNome());
 		funcionario.setCpf(novoFuncionario.getCpf());
 		funcionario.setCargo(novoFuncionario.getCargo());
-		funcionario.setSenha(novoFuncionario.getSenha());
 		funcionario.setTelefone(novoFuncionario.getTelefone());
 		funcionario.setEmail(novoFuncionario.getEmail());
 		funcionario.setSexo(novoFuncionario.getSexo());

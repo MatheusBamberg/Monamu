@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 350px;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            background: white;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .titulo {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        #telaCadastro {
+            display: none;
+        }
+
+        .link {
+            color: #007bff;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- LOGIN -->
+    <div id="telaLogin" class="container">
+        <div class="titulo">Login</div>
+
+        <input type="text" id="loginUsuario" placeholder="Usuário">
+        <input type="password" id="loginSenha" placeholder="Senha">
+
+        <button id="btnLogin">Entrar</button>
+
+        <div id="btnMostrarCadastro" class="link">Criar uma conta</div>
+    </div>
+
+    <!-- CADASTRO -->
+    <div id="telaCadastro" class="container">
+        <div class="titulo">Criar Conta</div>
+
+        <input type="text" id="cadUsuario" placeholder="Usuário">
+        <input type="password" id="cadSenha" placeholder="Senha">
+
+        <button id="btnCriarConta">Cadastrar</button>
+
+        <div id="btnVoltarLogin" class="link">Voltar para login</div>
+    </div>
+
+    <script>
+
+        const API = "http://localhost:8000/auth";
+
+        // ========= TROCAR TELA =========
+
+        function mostrarCadastro() {
+            document.getElementById("telaLogin").style.display = "none";
+            document.getElementById("telaCadastro").style.display = "flex";
+        }
+
+        function mostrarLogin() {
+            document.getElementById("telaCadastro").style.display = "none";
+            document.getElementById("telaLogin").style.display = "flex";
+        }
+
+        document.getElementById("btnMostrarCadastro").addEventListener("click", mostrarCadastro);
+        document.getElementById("btnVoltarLogin").addEventListener("click", mostrarLogin);
+
+        // ========= LOGIN REAL =========
+
+        document.getElementById("btnLogin").addEventListener("click", async () => {
+
+            const username = document.getElementById("loginUsuario").value;
+            const senha = document.getElementById("loginSenha").value;
+
+            try {
+                const req = await fetch(`${API}/login`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `username=${username}&senha=${senha}`
+                });
+
+                if (!req.ok) {
+                    const texto = await req.text();
+                    alert("Erro: " + texto);
+                    return;
+                }
+
+                alert("Login OK!");
+                window.location.href = "menu.html";  // 🔥 AGORA SÓ ENTRA SE VALIDAR NO BACKEND
+
+            } catch (e) {
+                alert("Erro ao conectar com o servidor.");
+            }
+        });
+
+        // ========= CADASTRAR USUÁRIO =========
+
+        document.getElementById("btnCriarConta").addEventListener("click", async () => {
+
+            const username = document.getElementById("cadUsuario").value;
+            const senha = document.getElementById("cadSenha").value;
+
+            try {
+                const req = await fetch(`${API}/criar`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                    body: `username=${username}&senha=${senha}`
+                });
+
+                if (!req.ok) {
+                    const texto = await req.text();
+                    alert("Erro: " + texto);
+                    return;
+                }
+
+                alert("Conta criada!");
+                mostrarLogin();
+
+            } catch (e) {
+                alert("Erro ao conectar com o servidor.");
+            }
+        });
+
+    </script>
+
+</body>
+
+</html>

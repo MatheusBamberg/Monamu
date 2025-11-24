@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -19,86 +18,68 @@ import jakarta.persistence.Table;
 @PrimaryKeyJoinColumn(name = "codpes")
 public class Funcionario extends Pessoa {
 
-    /** CPF do funcionário. */
-    @Column(name = "cpffun", length = 14, nullable = false, unique = true)
-    private String cpf;
+	/** CPF do funcionário. */
+	@Column(name = "cpffun", length = 14, nullable = false, unique = true)
+	private String cpf;
 
-    /** Cargo ou função. */
-    @Column(name = "carfun", length = 50)
-    private String cargo;
+	/** Cargo ou função. */
+	@Column(name = "carfun", length = 50)
+	private String cargo;
 
-    /** Data de admissão. */
-    @Column(name = "datadmfun")
-    private LocalDateTime dataAdmissao;
+	/** Data de admissão. */
+	@Column(name = "datadmfun")
+	private LocalDateTime dataAdmissao;
 
-    /** Senha (esperada como hash). */
-    @Column(name = "senfun", length = 60)
-    private String senha;
+	/** Loja à qual está vinculado. */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codloj", nullable = false)
+	private Loja loja;
 
-    /** Loja à qual está vinculado. */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "codloj", nullable = false)
-    private Loja loja;
+	public Funcionario() {
 
-    //Pro login
-    @OneToOne(mappedBy = "funcionario")
-    private Usuario usuario;
+	}
 
-
-    public Funcionario() {
-    	
-    }
-    
-    public Funcionario(Integer id, String nome, String email, Character sexo, String telefone, String rua,
+	public Funcionario(Integer id, String nome, String email, Character sexo, String telefone, String rua,
 			String bairro, String cidade, String estado, String cpf, String cargo, LocalDateTime dataAdmissao,
-			String senha, Loja loja) {
+			Loja loja) {
 		super(id, nome, email, sexo, telefone, rua, bairro, cidade, estado);
 		this.cpf = cpf;
 		this.cargo = cargo;
 		this.dataAdmissao = dataAdmissao;
-		this.senha = senha;
 		this.loja = loja;
 	}
 
 	// Getters / Setters
 
-    public String getCpf() {
-        return cpf;
-    }
+	public String getCpf() {
+		return cpf;
+	}
 
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 
-    public String getCargo() {
-        return cargo;
-    }
+	public String getCargo() {
+		return cargo;
+	}
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
-    }
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
+	}
 
-    public LocalDateTime getDataAdmissao() {
-        return dataAdmissao;
-    }
+	public LocalDateTime getDataAdmissao() {
+		return dataAdmissao;
+	}
 
-    public void setDataAdmissao(LocalDateTime dataAdmissao) {
-        this.dataAdmissao = dataAdmissao;
-    }
+	public void setDataAdmissao(LocalDateTime dataAdmissao) {
+		this.dataAdmissao = dataAdmissao;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public Loja getLoja() {
+		return loja;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Loja getLoja() {
-        return loja;
-    }
-
-    public void setLoja(Loja loja) {
-        this.loja = loja;
-    }
+	public void setLoja(Loja loja) {
+		this.loja = loja;
+	}
 }
