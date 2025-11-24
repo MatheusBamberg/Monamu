@@ -7,19 +7,15 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import br.edu.unoesc.monamu.model.Funcionario;
-import br.edu.unoesc.monamu.model.Loja;
 import br.edu.unoesc.monamu.repository.FuncionarioRepository;
-import br.edu.unoesc.monamu.repository.LojaRepository;
 
 @Service
 public class FuncionarioService {
 
 	private final FuncionarioRepository funcionarioRepository;
-	private final LojaRepository lojaRepository;
 
-	public FuncionarioService(FuncionarioRepository funcionarioRepository, LojaRepository lojaRepository) {
+	public FuncionarioService(FuncionarioRepository funcionarioRepository) {
 		this.funcionarioRepository = funcionarioRepository;
-		this.lojaRepository = lojaRepository;
 	}
 
 	/**
@@ -49,24 +45,18 @@ public class FuncionarioService {
 	}
 
 	/**
-	 * Cria um novo funcionário, verifica se a loja existe e define a data de
+	 * Cria um novo funcionário e define a data de
 	 * admissão para o momento atual.
 	 * 
 	 * @param funcionario O funcionário a ser criado.
 	 * @return O funcionário salvo.
-	 * @throws RuntimeException Se a loja do funcionário não for encontrada.
 	 */
 	public Funcionario criarFuncionario(Funcionario funcionario) {
 
-		// verifica se a loja existe
-		Loja loja = lojaRepository.findById(funcionario.getLoja().getId())
-				.orElseThrow(() -> new RuntimeException("Loja não encontrada: " + funcionario.getLoja().getId()));
+        funcionario.setDataAdmissao(LocalDateTime.now());
 
-		funcionario.setLoja(loja);
-		funcionario.setDataAdmissao(LocalDateTime.now());
-
-		return funcionarioRepository.save(funcionario);
-	}
+        return funcionarioRepository.save(funcionario);
+    }
 
 	/**
 	 * Atualiza um funcionário existente com novos dados.
@@ -88,7 +78,6 @@ public class FuncionarioService {
 		funcionario.setRua(novoFuncionario.getRua());
 		funcionario.setBairro(novoFuncionario.getBairro());
 		funcionario.setCidade(novoFuncionario.getCidade());
-		funcionario.setLoja(novoFuncionario.getLoja());
 
 		return funcionarioRepository.save(funcionario);
 	}

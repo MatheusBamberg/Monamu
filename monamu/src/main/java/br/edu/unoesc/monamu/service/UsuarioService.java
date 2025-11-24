@@ -3,53 +3,53 @@ package br.edu.unoesc.monamu.service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.edu.unoesc.monamu.model.Funcionario;
 import br.edu.unoesc.monamu.model.Usuario;
 import br.edu.unoesc.monamu.repository.FuncionarioRepository;
 import br.edu.unoesc.monamu.repository.UsuarioRepository;
 
+
 @Service
 public class UsuarioService {
 
-	private final UsuarioRepository usuarioRepository;
-	private final BCryptPasswordEncoder encoder;
 
-	public UsuarioService(UsuarioRepository usuarioRepository, FuncionarioRepository funcionarioRepository,
-			BCryptPasswordEncoder encoder) {
+		private final UsuarioRepository usuarioRepository;
+		private final FuncionarioRepository funcionarioRepository;
+		private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		
+		public UsuarioService(UsuarioRepository usuarioRepository, FuncionarioRepository funcionarioRepository) {
 		this.usuarioRepository = usuarioRepository;
-		this.encoder = encoder;
-	}
-
-	/**
-	 * Criar usuário com senha criptografada
-	 * 
-	 * @param username
-	 * @param senha
-	 */
-	public Usuario criarUsuario(String username, String senha) {
-
+		this.funcionarioRepository = funcionarioRepository;
+		}
+		
+		
+		public Usuario criarUsuario(String username, String senha, Integer codpes) {
+		Funcionario f = funcionarioRepository.findById(codpes)
+		.orElseThrow(() -> new RuntimeException("Funcionario não encontrado"));
+		
+		
 		Usuario u = new Usuario();
+		u.setFuncionario(f);
 		u.setUsername(username);
 		u.setSenha(encoder.encode(senha));
-
+		u.setAtivo(true);
+		u.setDataCadastro(java.time.LocalDateTime.now());
+		
+		
 		return usuarioRepository.save(u);
-	}
-
-	/**
-	 * Login básico manual
-	 * 
-	 * @param username
-	 * @param senha
-	 * @return
-	 */
-	public Usuario login(String username, String senha) {
-
+		}
+		
+		
+		public Usuario login(String username, String senha) {
 		Usuario u = usuarioRepository.findByUsername(username)
-				.orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
-
-		// Validação de senha
-		if (!encoder.matches(senha, u.getSenha()))
-			throw new RuntimeException("Senha incorreta");
-
+		.orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
+		
+		
+		if (!u.getAtivo()) throw new RuntimeException("Usuario inativo");
+		if (!encoder.matches(senha, u.getSenha())) throw new RuntimeException("Senha incorreta");
+		
+		
 		return u;
-	}
+		}
 }

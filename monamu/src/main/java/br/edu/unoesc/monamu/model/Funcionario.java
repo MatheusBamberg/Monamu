@@ -4,9 +4,6 @@ import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
@@ -30,23 +27,17 @@ public class Funcionario extends Pessoa {
 	@Column(name = "datadmfun")
 	private LocalDateTime dataAdmissao;
 
-	/** Loja à qual está vinculado. */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "codloj", nullable = false)
-	private Loja loja;
 
 	public Funcionario() {
 
 	}
 
 	public Funcionario(Integer id, String nome, String email, Character sexo, String telefone, String rua,
-			String bairro, String cidade, String estado, String cpf, String cargo, LocalDateTime dataAdmissao,
-			Loja loja) {
+			String bairro, String cidade, String estado, String cpf, String cargo, LocalDateTime dataAdmissao) {
 		super(id, nome, email, sexo, telefone, rua, bairro, cidade, estado);
 		this.cpf = cpf;
 		this.cargo = cargo;
 		this.dataAdmissao = dataAdmissao;
-		this.loja = loja;
 	}
 
 	// Getters / Setters
@@ -73,13 +64,5 @@ public class Funcionario extends Pessoa {
 
 	public void setDataAdmissao(LocalDateTime dataAdmissao) {
 		this.dataAdmissao = dataAdmissao;
-	}
-
-	public Loja getLoja() {
-		return loja;
-	}
-
-	public void setLoja(Loja loja) {
-		this.loja = loja;
 	}
 }
