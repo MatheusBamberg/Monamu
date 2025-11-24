@@ -34,29 +34,35 @@ Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Mon
 
 ## 📁 Estrutura de Pastas e Arquivos
 
-````md
-monamu/
-├── **Diagramas/**
-│   ├── Diagrama de Classes.vpp
-│   ├── Diagrama de Estado.vpp
-│   ├── Diagrama de Sequência.vpp
-│   ├── Diagrama de Atividades.vpp
-│   └── Modelos de Caso de Uso/
-│       └── 
-│
-├── **Scripts/**
-│   ├── Backup e Restore - Monamu.pdf
-│   ├── Script de Criação - Monamu.sql
-│   ├── Script de Inserts - Monamu.sql
-│   ├── Script de Política de Acesso - Monamu.sql
-│   ├── Script de Procedures - Monamu.sql
-│   ├── Script de Triggers - Monamu.sql
-│   └── Script de Views - Monamu.sql
-│
-├── **Monamu/**
-│   └── (código-fonte Java + frontend HTML/CSS/JS do sistema)
-│
-└── **Monamu-requisitos.pdf**
+- **📂 [Diagramas](./Diagramas)**
+  - 📄 [Diagrama de Estado.vpp](./Diagramas/Diagrama%20de%20Estado.vpp)
+  - 📄 [Diagrama de Classes.vpp](./Diagramas/Diagrama%20de%20Classes.vpp)
+  - 📄 [Diagrama de Sequência.vpp](./Diagramas/Diagrama%20de%20Sequência.vpp)
+  - 📄 [Diagrama de Atividades.vpp](./Diagramas/Diagrama%20de%20atividades.vpp)
+  - 📄 [Monamu.vpp](./Diagramas/Monamu.vpp)
+  - **📂 [Modelos de Caso de Uso](./Diagramas/Modelos%20de%20Caso%20de%20Uso)**
+    - 📄 [Cadastro de funcionários.vpp](./Diagramas/Modelos%20de%20Caso%20de%20Uso/Cadastro%20de%20funcionários.vpp)
+    - 📄 [Cadastro de produto.vpp](./Diagramas/Modelos%20de%20Caso%20de%20Uso/Cadastro%20de%20produto.vpp)
+    - 📄 [Fluxo de caso de uso.pdf](./Diagramas/Modelos%20de%20Caso%20de%20Uso/Fluxo%20de%20caso%20de%20uso.pdf)
+    - 📄 [Vendas.vpp](./Diagramas/Modelos%20de%20Caso%20de%20Uso/Vendas.vpp)
+
+
+- **📂 [Scripts](./Scripts)**
+  - 📄 [Backup e Restore - Monamu.pdf](./Scripts/Backup%20e%20Restore%20-%20Monamu.pdf)
+  - 📄 [Script de Criação - Monamu.sql](./Scripts/Script%20de%20Criação%20-%20Monamu.sql)
+  - 📄 [Script de Inserts - Monamu.sql](./Scripts/Script%20de%20Inserts%20-%20Monamu.sql)
+  - 📄 [Script de Política de Acesso - Monamu.sql](./Scripts/Script%20de%20Política%20de%20Acesso%20-%20Monamu.sql)
+  - 📄 [Script de Procedures - Monamu.sql](./Scripts/Script%20de%20Procedures%20-%20Monamu.sql)
+  - 📄 [Script de Triggers - Monamu.sql](./Scripts/Script%20de%20Triggers%20-%20Monamu.sql)
+  - 📄 [Script de Views - Monamu.sql](./Scripts/Script%20de%20Views%20-%20Monamu.sql)
+
+- **📂 [Monamu](./Monamu)**
+  - *(código-fonte Java + frontend HTML/CSS/JS do sistema)*
+
+- 📄 [Monamu-requisitos.pdf](./Monamu-requisitos.pdf)
+
+
+
 
 ## 🛠️ Tecnologias Utilizadas
 
