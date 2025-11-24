@@ -32,6 +32,35 @@ O Monamu foi desenvolvido seguindo requisitos funcionais e não funcionais que o
 
 Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Monamu-Requisitos.pdf).
 
+## 🛠️ Tecnologias Utilizadas
+
+### **Backend**
+- ☕ **Java**
+- 🌱 **Spring Boot**
+- 🗂️ **JPA / Hibernate**
+- 📦 **Maven**
+
+### **Banco de Dados**
+- 🐘 **PostgreSQL**
+- 🛠️ **DBeaver**
+- 🖥️ **pgAdmin**
+
+### **Frontend**
+- 🌐 **HTML5**
+- 🎨 **CSS3**
+- ⚙️ **JavaScript**
+- 🎀 **Bootstrap 5**
+
+### **Modelagem e Documentação**
+- 📊 **Visual Paradigm** (UML, DER, casos de uso)
+  
+### **Ferramentas de Desenvolvimento**
+- 🖥️ **Eclipse**
+- 📝 **VS Code**
+- 🔧 Git
+- 🌐 GitHub
+
+
 
 
 
