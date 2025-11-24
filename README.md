@@ -32,6 +32,32 @@ O Monamu foi desenvolvido seguindo requisitos funcionais e não funcionais que o
 
 Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Monamu-Requisitos.pdf).
 
+## 📁 Estrutura de Pastas e Arquivos
+
+````md
+monamu/
+├── **Diagramas/**
+│   ├── Diagrama de Classes.vpp
+│   ├── Diagrama de Estado.vpp
+│   ├── Diagrama de Sequência.vpp
+│   ├── Diagrama de Atividades.vpp
+│   └── Modelos de Caso de Uso/
+│       └── 
+│
+├── **Scripts/**
+│   ├── Backup e Restore - Monamu.pdf
+│   ├── Script de Criação - Monamu.sql
+│   ├── Script de Inserts - Monamu.sql
+│   ├── Script de Política de Acesso - Monamu.sql
+│   ├── Script de Procedures - Monamu.sql
+│   ├── Script de Triggers - Monamu.sql
+│   └── Script de Views - Monamu.sql
+│
+├── **Monamu/**
+│   └── (código-fonte Java + frontend HTML/CSS/JS do sistema)
+│
+└── **Monamu-requisitos.pdf**
+
 ## 🛠️ Tecnologias Utilizadas
 
 ### **Backend**
