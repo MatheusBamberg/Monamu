@@ -90,8 +90,7 @@
     }
 
 
-    #toggleSidebar:hover,
-    .bi-list:hover {
+    #toggleSidebar:hover {
         background-color: #6c3ef1;
         color: white;
     }
@@ -103,5 +102,16 @@
 
     .bi-list {
         color: #6c3ef1;
+    }
+
+    .bi-list:hover {
+        color: white;
+    }
+
+    @media (max-width: 767px) {
+        iframe#content {
+            margin-top: 56px;
+            height: calc(100vh - 56px);
+        }
     }
 </style>
