@@ -62,6 +62,12 @@ Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Mon
 - **📂 [Monamu](./Monamu)**
   - *(código-fonte Java + frontend HTML/CSS/JS do sistema)*
 
+- **📂 [JavaDOC](./JavaDOC)**
+  - *(Documentação do código em Java)*
+
+- **📂 [Imagens](./imagens)**
+  - *(Imagens usadas no README)*
+
 - 📄 [Monamu-requisitos.pdf](./Monamu-requisitos.pdf)
 
 
