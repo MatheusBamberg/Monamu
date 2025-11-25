@@ -26,6 +26,9 @@ Foi desenvolvido como trabalho acadêmico para a disciplina de Engenharia de Sof
 | | Controle | Marcação de condicional devolvida ou não. |
 | **🏬 Loja** | Cadastro | Registro da loja com código, nome, rua, bairro, cidade, CNPJ e telefone de contato. |
 
+![Descrição do gif](imagens/tela.gif)
+
+
 ## 📄 Requisitos do Sistema
 
 O Monamu foi desenvolvido seguindo requisitos funcionais e não funcionais que orientam o cadastro de produtos, clientes, funcionários, fornecedores, controle de vendas, condicional, estoque e loja.
@@ -91,6 +94,17 @@ Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Mon
 - 📝 **VS Code**
 - 🔧 Git
 - 🌐 GitHub
+
+## 📊 Diagramas do Sistema
+
+Abaixo estão algumas representações gráficas feitas para entender a estrutura e o funcionamento do Monamu.  
+
+## Diagrama de Atividades
+<img src="imagens/diagrama_atividades.png" width="650"/>
+
+## Modelo Relacional
+<img src="imagens/modelo_relacional.png" width="650"/>
+
 
 ## 🚀 Como Executar o Projeto
 
