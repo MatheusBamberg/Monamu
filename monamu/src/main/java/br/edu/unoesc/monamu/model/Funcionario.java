@@ -27,7 +27,6 @@ public class Funcionario extends Pessoa {
 	@Column(name = "datadmfun")
 	private LocalDateTime dataAdmissao;
 
-
 	public Funcionario() {
 
 	}
@@ -40,7 +39,7 @@ public class Funcionario extends Pessoa {
 		this.dataAdmissao = dataAdmissao;
 	}
 
-	// Getters / Setters
+	// Getters e Setters
 
 	public String getCpf() {
 		return cpf;

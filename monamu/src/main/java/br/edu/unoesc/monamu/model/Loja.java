@@ -42,9 +42,9 @@ public class Loja {
 	/** CNPJ da loja. */
 	@Column(name = "cnploj", length = 18, unique = true)
 	private String cnpj;
-	
+
 	public Loja() {
-		
+
 	}
 
 	public Loja(Integer id, String nome, String rua, String bairro, String cidade, String telefone, String cnpj) {
@@ -58,7 +58,7 @@ public class Loja {
 		this.cnpj = cnpj;
 	}
 
-	// --- Getters e Setters ---
+	// Getters e Setters
 
 	public Integer getId() {
 		return id;

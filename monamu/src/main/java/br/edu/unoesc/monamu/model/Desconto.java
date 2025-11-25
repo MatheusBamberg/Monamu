@@ -32,7 +32,7 @@ public class Desconto {
 	/** Valor ou percentual do desconto. */
 	@Column(name = "valdsc", precision = 10, scale = 2, nullable = false)
 	private BigDecimal valor;
-	
+
 	/** Data de cadastro. */
 	@Column(name = "caddsc")
 	private LocalDateTime dataCadastro;
@@ -40,13 +40,13 @@ public class Desconto {
 	/** Data de validade. */
 	@Column(name = "vlddsc")
 	private LocalDate dataValidade;
-	
+
 	/** Venda na qual o desconto foi aplicado */
 	@ManyToOne
 	@JoinColumn(name = "codven", nullable = true)
 	private Venda venda;
 
-	// --- Getters e Setters ---
+	// Getters e Setters
 
 	public Integer getId() {
 		return id;

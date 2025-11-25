@@ -19,31 +19,31 @@ import jakarta.persistence.Table;
 @Table(name = "item_condicional")
 public class ItemCondicional {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "coditecon")
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "coditecon")
+	private Integer id;
 
-    /** Quantidade do produto no item condicional. */
-    @Column(name = "qtditecon", nullable = false)
-    private Integer quantidadeItem;
+	/** Quantidade do produto no item condicional. */
+	@Column(name = "qtditecon", nullable = false)
+	private Integer quantidadeItem;
 
-    /** Condicional à qual este item pertence. */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "codcnd", nullable = false)
-    @JsonBackReference
-    private Condicional condicional;
+	/** Condicional à qual este item pertence. */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codcnd", nullable = false)
+	@JsonBackReference
+	private Condicional condicional;
 
-    /** Produto que faz parte do item. */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "codpro", nullable = false)
-    private Produto produto;
+	/** Produto que faz parte do item. */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "codpro", nullable = false)
+	private Produto produto;
 
-    public ItemCondicional() {
-    	
-    }
-    
-    public ItemCondicional(Integer id, Integer quantidadeItem, Condicional condicional, Produto produto) {
+	public ItemCondicional() {
+
+	}
+
+	public ItemCondicional(Integer id, Integer quantidadeItem, Condicional condicional, Produto produto) {
 		super();
 		this.id = id;
 		this.quantidadeItem = quantidadeItem;
@@ -51,37 +51,37 @@ public class ItemCondicional {
 		this.produto = produto;
 	}
 
-	// Getters / Setters
+	// Getters e Setters
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public Integer getQuantidadeItem() {
-        return quantidadeItem;
-    }
+	public Integer getQuantidadeItem() {
+		return quantidadeItem;
+	}
 
-    public void setQuantidadeItem(Integer quantidadeItem) {
-        this.quantidadeItem = quantidadeItem;
-    }
+	public void setQuantidadeItem(Integer quantidadeItem) {
+		this.quantidadeItem = quantidadeItem;
+	}
 
-    public Condicional getCondicional() {
-        return condicional;
-    }
+	public Condicional getCondicional() {
+		return condicional;
+	}
 
-    public void setCondicional(Condicional condicional) {
-        this.condicional = condicional;
-    }
+	public void setCondicional(Condicional condicional) {
+		this.condicional = condicional;
+	}
 
-    public Produto getProduto() {
-        return produto;
-    }
+	public Produto getProduto() {
+		return produto;
+	}
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
 }

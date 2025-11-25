@@ -65,8 +65,6 @@ public abstract class Pessoa {
 		this.estado = estado;
 	}
 
-
-
 	public Integer getId() {
 		return id;
 	}

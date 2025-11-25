@@ -28,27 +28,27 @@ public class Condicional {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "codcnd")
 	private Integer id;
-	
+
 	/** Nome/Identificador da condicional. */
 	@Column(name = "nomitncon", length = 100)
 	private String nomeItem;
-	
+
 	/** Data e hora da retirada. */
 	@Column(name = "datretitncon", nullable = false)
 	private LocalDateTime dataRetirada;
-	
+
 	/** Data e hora da devolução. */
 	@Column(name = "datdevitncon")
 	private LocalDateTime dataDevolucao;
-	
+
 	/** Observações. */
 	@Column(name = "obsitncon", length = 255)
 	private String observacao;
-	
+
 	/** Se o condicional foi devolvido ou não */
-    @Column(name = "devitncon", nullable = false)
-    private Boolean devolvido = false;
-    
+	@Column(name = "devitncon", nullable = false)
+	private Boolean devolvido = false;
+
 	/** Cliente que retirou a condicional. */
 	@OneToMany(mappedBy = "condicional", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
@@ -73,7 +73,7 @@ public class Condicional {
 		this.cliente = cliente;
 	}
 
-	// --- Getters e Setters ---
+	// Getters e Setters
 	public Integer getId() {
 		return id;
 	}
@@ -137,5 +137,5 @@ public class Condicional {
 	public void setDevolvido(Boolean devolvido) {
 		this.devolvido = devolvido;
 	}
-	
+
 }

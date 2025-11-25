@@ -20,9 +20,9 @@ public class Fornecedor extends Pessoa {
 	/** Nome fantasia do fornecedor. */
 	@Column(name = "nomfanfor", length = 100)
 	private String nomeFantasia;
-	
+
 	public Fornecedor() {
-		
+
 	}
 
 	public Fornecedor(Integer id, String nome, String email, Character sexo, String telefone, String rua, String bairro,
@@ -32,9 +32,7 @@ public class Fornecedor extends Pessoa {
 		this.nomeFantasia = nomeFantasia;
 	}
 
-
-
-	// --- Getters e Setters ---
+	// Getters e Setters
 
 	public String getCnpj() {
 		return cnpj;

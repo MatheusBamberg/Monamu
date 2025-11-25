@@ -33,8 +33,6 @@ public class Cliente extends Pessoa {
 		this.dataCadastro = dataCadastro;
 	}
 
-
-
 	public String getCpf() {
 		return cpf;
 	}
