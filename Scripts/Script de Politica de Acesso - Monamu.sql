@@ -4,7 +4,7 @@ create group funcionario;
 
 -- Atribuição das Permissões sobre as Tabelas:
 grant select, insert, delete, update
-on cliente, condicional, desconto, fornecedor, funcionario, item_condicional, item_venda, loja, pessoa, venda
+on cliente, condicional, desconto, fornecedor, funcionario, item_condicional, item_venda, loja, pessoa, venda, usuario
 to gerente;
 
 grant select

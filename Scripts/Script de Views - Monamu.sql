@@ -58,8 +58,8 @@ nompro "Nome do Produto",
 vlrtotiteven "Valor Total da Venda"
 from 
 funcionario f 
-inner join pessoa pe on f.codfun = pe.codpes
-inner join venda v on f.codfun = v.codfun
+inner join pessoa pe on f.codpes = pe.codpes
+inner join venda v on f.codpes = v.codfun
 inner join item_venda iv on v.codven = iv.codven
 inner join produto p on iv.codpro = p.codpro
 where v.datven between '01/01/2025' and '02/12/2025'

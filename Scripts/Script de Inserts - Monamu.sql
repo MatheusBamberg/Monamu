@@ -37,13 +37,23 @@ VALUES
 (5, '56789012000155', 'Tecido & Cia');
 
 -- 5) Tabela funcionario:
-INSERT INTO Funcionario (codfun, cpffun, carfun, datadmfun, senfun, codloj) 
+INSERT INTO Funcionario (codpes, cpffun, carfun, datadmfun) 
 VALUES
-(1, '99887766001', 'Vendedor', NOW(), 'senha123', 1),
-(2, '99887766002', 'Gerente', NOW(), 'senhager', 2),
-(3, '99887766003', 'Caixa', NOW(), 'senha321', 3),
-(4, '99887766004', 'Vendedor', NOW(), 'senha456', 4),
-(5, '99887766005', 'Supervisor', NOW(), 'senha789', 5);
+(1, '99887766001', 'Vendedor', NOW()),
+(2, '99887766002', 'Gerente', NOW()),
+(3, '99887766003', 'Caixa', NOW()),
+(4, '99887766004', 'Vendedor', NOW()),
+(5, '99887766005', 'Supervisor', NOW());
+
+-- 6) Tabela usuario:
+INSERT INTO Usuario (useusu, senhasusu, atvusu, codpes) --A senha está em hash, porem na aplicação a senha sera 'senha123'
+VALUES
+('vendedor01', '$2a$10$Qk8mVwdpU2Jg8aUqfVqF6uAnC6uG8uHWc5JgEoWNWclYQar91SRle', true, 1),
+('gerente01', '$2a$10$7E1PJtXcF0jhxFjzXBfoLey7EIGZkYc/s6JvtdmRmo3dXpG1EZf7K', true, 2),
+('caixa01', '$2a$10$dE6aVg5Xpv7NQkczjE7/ceL4hLQfkxj6yQ4hkQ0Pa6TEqYt8AXJ9S', true, 3),
+('vendedor02', '$2a$10$c0B0VLWq7u6QeytVVMzBauqoE6gKQ6ypxYc33RH1Th6eMie2Tqwu6', false, 4),
+('supervisor01', '$2a$10$8z5k4H1SbVnZNRlWfD2JzO0k3QH1qNXY83Y1Hzx96j6XPIfP0tN2u', true, 5);
+
 
 -- 6) Tabela produto:
 INSERT INTO Produto (nompro, tampro, corpro, tipro, custpro, vendpro, qtdestpro, datcadpro, despro, codloj, codfor)
