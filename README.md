@@ -84,7 +84,7 @@ Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Mon
 - 🎀 **Bootstrap 5**
 
 ### **Modelagem e Documentação**
-- 📊 **Visual Paradigm** (UML, DER, casos de uso)
+- 📊 **Visual Paradigm**
   
 ### **Ferramentas de Desenvolvimento**
 - 🖥️ **Eclipse**
