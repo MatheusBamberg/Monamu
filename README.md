@@ -100,10 +100,10 @@ Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Mon
 Abaixo estão algumas representações gráficas feitas para entender a estrutura e o funcionamento do Monamu.  
 
 ## Diagrama de Atividades
-<img src="imagens/diagrama_atividades.png" width="650"/>
+![Diagrama de Atividades](imagens/diagrama_atividades.png)
 
 ## Modelo Relacional
-<img src="imagens/modelo_relacional.png" width="650"/>
+![Modelo Relacional](imagens/modelo_relacional.png)
 
 
 ## 🚀 Como Executar o Projeto
