@@ -32,7 +32,6 @@
                         <tr>
                             <th>Nome</th>
                             <th>Cargo</th>
-                            <th>Loja</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -94,13 +93,6 @@
                                 </select>
                             </div>
 
-                            <div class="col-md-6">
-                                <label for="lojaFuncionario" class="form-label">Loja</label>
-                                <select id="lojaFuncionario" class="form-select" required>
-                                    <option selected disabled>Selecione...</option>
-                                </select>
-                            </div>
-
                             <hr class="mt-4 mb-2">
                             <p><strong>Endereço</strong></p>
 
@@ -134,32 +126,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         const apiFuncionarios = "/api/funcionarios";
-        const apiLojas = "/api/lojas";
 
-        let lojas = [];
         const modalFuncionarioEl = document.getElementById("modalFuncionario");
         const modalFuncionario = new bootstrap.Modal(modalFuncionarioEl);
-
-        function carregarLojas() {
-            return axios.get(apiLojas)
-                .then(res => {
-                    lojas = res.data;
-                    const selectLoja = document.getElementById("lojaFuncionario");
-                    selectLoja.innerHTML = '<option selected disabled>Selecione...</option>';
-                    lojas.forEach(loja => {
-                        const option = document.createElement("option");
-                        option.value = loja.id;
-                        option.textContent = loja.nome;
-                        selectLoja.appendChild(option);
-                    });
-                })
-                .catch(err => console.error("Erro ao carregar lojas:", err));
-        }
 
         function carregarFuncionarios() {
             axios.get(apiFuncionarios)
@@ -167,12 +143,10 @@
                     const tbody = document.querySelector("table tbody");
                     tbody.innerHTML = "";
                     res.data.forEach(f => {
-                        const nomeLoja = f.loja ? (lojas.find(l => l.id === f.loja.id)?.nome || f.loja.nome) : "";
                         tbody.innerHTML += `
                     <tr>
                         <td>${f.nome}</td>
                         <td>${f.cargo}</td>
-                        <td>${nomeLoja}</td>
                         <td>
                             <button class="action edit" onclick="editarFuncionario(${f.id})">
                                 <i class="bi bi-pencil"></i>
@@ -187,27 +161,24 @@
                 .catch(err => console.error("Erro ao carregar funcionários:", err));
         }
 
-        // Inicialização
-        carregarLojas().then(() => carregarFuncionarios());
+        carregarFuncionarios();
 
         function abrirModalNovoFuncionario() {
-            carregarLojas().then(() => {
-                document.getElementById("formFuncionario").reset();
-                document.getElementById("modalFuncionarioLabel").textContent = "Novo Funcionário";
-                document.getElementById("funcionarioId")?.remove();
+            document.getElementById("formFuncionario").reset();
+            document.getElementById("modalFuncionarioLabel").textContent = "Novo Funcionário";
+            document.getElementById("funcionarioId")?.remove();
 
-                const hoje = new Date();
-                document.getElementById("dataAdmissao").value = hoje.toISOString().substring(0, 10);
+            const hoje = new Date();
+            document.getElementById("dataAdmissao").value = hoje.toISOString().substring(0, 10);
 
-                modalFuncionario.show();
-            });
+            modalFuncionario.show();
         }
 
-        // Salvar funcionário
         document.getElementById("formFuncionario").addEventListener("submit", (e) => {
             e.preventDefault();
 
             const id = document.getElementById("funcionarioId")?.value;
+
             const funcionario = {
                 nome: document.getElementById("nomeFuncionario").value,
                 cpf: document.getElementById("cpfFuncionario").value,
@@ -219,8 +190,7 @@
                 rua: document.getElementById("ruaFuncionario").value,
                 bairro: document.getElementById("bairroFuncionario").value,
                 cidade: document.getElementById("cidadeFuncionario").value,
-                estado: document.getElementById("estadoFuncionario").value,
-                loja: { id: parseInt(document.getElementById("lojaFuncionario").value) }
+                estado: document.getElementById("estadoFuncionario").value
             };
 
             const metodo = id ? "put" : "post";
@@ -238,39 +208,36 @@
         });
 
         function editarFuncionario(id) {
-            carregarLojas().then(() => {
-                axios.get(`${apiFuncionarios}/${id}`)
-                    .then(res => {
-                        const f = res.data;
+            axios.get(`${apiFuncionarios}/${id}`)
+                .then(res => {
+                    const f = res.data;
 
-                        document.getElementById("funcionarioId")?.remove();
-                        const inputId = document.createElement("input");
-                        inputId.type = "hidden";
-                        inputId.id = "funcionarioId";
-                        inputId.value = f.id;
-                        document.getElementById("formFuncionario").appendChild(inputId);
+                    document.getElementById("funcionarioId")?.remove();
+                    const inputId = document.createElement("input");
+                    inputId.type = "hidden";
+                    inputId.id = "funcionarioId";
+                    inputId.value = f.id;
+                    document.getElementById("formFuncionario").appendChild(inputId);
 
-                        document.getElementById("nomeFuncionario").value = f.nome;
-                        document.getElementById("cpfFuncionario").value = f.cpf;
-                        document.getElementById("cargoFuncionario").value = f.cargo;
-                        document.getElementById("telefoneFuncionario").value = f.telefone;
-                        document.getElementById("emailFuncionario").value = f.email;
-                        document.getElementById("sexoFuncionario").value = f.sexo;
-                        document.getElementById("dataAdmissao").value = f.dataAdmissao.substring(0, 10);
-                        document.getElementById("ruaFuncionario").value = f.rua;
-                        document.getElementById("bairroFuncionario").value = f.bairro;
-                        document.getElementById("cidadeFuncionario").value = f.cidade;
-                        document.getElementById("estadoFuncionario").value = f.estado;
-                        document.getElementById("lojaFuncionario").value = f.loja ? f.loja.id : "";
+                    document.getElementById("nomeFuncionario").value = f.nome;
+                    document.getElementById("cpfFuncionario").value = f.cpf;
+                    document.getElementById("cargoFuncionario").value = f.cargo;
+                    document.getElementById("telefoneFuncionario").value = f.telefone;
+                    document.getElementById("emailFuncionario").value = f.email;
+                    document.getElementById("sexoFuncionario").value = f.sexo;
+                    document.getElementById("dataAdmissao").value = f.dataAdmissao.substring(0, 10);
+                    document.getElementById("ruaFuncionario").value = f.rua;
+                    document.getElementById("bairroFuncionario").value = f.bairro;
+                    document.getElementById("cidadeFuncionario").value = f.cidade;
+                    document.getElementById("estadoFuncionario").value = f.estado;
 
-                        document.getElementById("modalFuncionarioLabel").textContent = "Editar Funcionário";
-                        modalFuncionario.show();
-                    })
-                    .catch(err => {
-                        const msg = err.response?.data?.erro || err.response?.data?.message || "Erro ao buscar funcionário";
-                        alert(msg);
-                    });
-            });
+                    document.getElementById("modalFuncionarioLabel").textContent = "Editar Funcionário";
+                    modalFuncionario.show();
+                })
+                .catch(err => {
+                    const msg = err.response?.data?.erro || err.response?.data?.message || "Erro ao buscar funcionário";
+                    alert(msg);
+                });
         }
 
         function excluirFuncionario(id) {
