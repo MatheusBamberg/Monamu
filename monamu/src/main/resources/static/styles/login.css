@@ -34,18 +34,3 @@ body {
 .link {
   cursor: pointer;
 }
-
-#btnVoltarLogin,
-#btnMostrarCadastro {
-  color: #6744cf !important;
-}
-
-.btn {
-  background-color: #6744cf;
-  color: white;
-}
-
-.btn:hover {
-  background: #a084f3;
-  color: white;
-}
