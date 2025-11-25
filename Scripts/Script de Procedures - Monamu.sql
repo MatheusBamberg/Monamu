@@ -21,7 +21,6 @@ select
 from Venda v
 join Desconto d on d.coddsc = v.coddsc;
 
-
 -- Valor total de cada produto em estoque:
 create or replace function total_cada_produto(qtd_produto int4, vlr_produto numeric(6,2))
 returns numeric
@@ -40,6 +39,6 @@ language plpgsql;
 
 -- Teste da procedure:
 select
-	p.nompro,
+	p.nompro "Nome do Produo", p.qtdestpro "Quantidade em Estoque", p.vendpro "Preço de Venda",
 	total_cada_produto(p.qtdestpro, p.vendpro) "Valor Total"
 from produto p;
