@@ -92,9 +92,29 @@ Para ver todos os requisitos detalhados, acesse o [documento dos requisitos](Mon
 - 🔧 Git
 - 🌐 GitHub
 
+## 🚀 Como Executar o Projeto
+
+Siga os passos abaixo para rodar o Monamu localmente:
+
+1. Clone o repositório:  
+   `git clone https://github.com/SEU_USUARIO/monamu.git`
+
+2. Acesse a pasta do projeto:  
+   `cd monamu`
+
+3. Configure o banco de dados PostgreSQL no arquivo `src/main/resources/application.properties`:
 
 
+4. Crie o banco de dados (se ainda não existir):
+`CREATE DATABASE monamudb;`
 
+5. Execute o projeto usando Maven:  
+`./mvnw spring-boot:run`  
+
+6. Acesse o sistema no navegador:  
+`http://localhost:8000`
+
+Pronto! Agora você pode explorar todas as funcionalidades do Monamu.
 
 
 ## 👨‍💻 Desenvolvedores
