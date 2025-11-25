@@ -102,6 +102,12 @@ Abaixo estão algumas representações gráficas feitas para entender a estrutur
 ## Diagrama de Atividades
 ![Diagrama de Atividades](imagens/diagrama_atividades.png)
 
+## Diagrama de Estados
+![Diagrama de Estados](imagens/diagrama_estados.png)
+
+## Diagrama de Caso de Uso
+![Diagrama de Caso de Uso](imagens/diagrama_caso.png)
+
 ## Modelo Relacional
 ![Modelo Relacional](imagens/modelo_relacional.png)
 
